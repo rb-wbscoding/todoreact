@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
 import AddButton from './components/addbutton/AddButton';
-import TodoList from './components/todolist/TodoList';
-import InputOverlay from './components/inputoverlay/InputOverlay';
+import TodoList from './components/todolist';
+import InputOverlay from './components/inputoverlay';
 
 function App() {
   return (
