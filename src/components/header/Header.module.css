@@ -1,0 +1,20 @@
+.header{
+    background-color:#0074d9;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 100;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 15px 20px;
+}
+
+.logo{
+    margin-right: 15px;
+}
