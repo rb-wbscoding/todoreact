@@ -1,14 +1,12 @@
-import React from "react";
-import styles from "./ClearListButton.module.css";
+import React from 'react';
+import styles from './ClearListButton.module.css';
 
-function ClearListButton(){
-    return(
-        <div className={styles.clearlistcontainer}>
-            <button className={styles.clearlist}>Clear List</button>
-        </div>
-    );
-
+function ClearListButton({ action }) {
+  return (
+    <button className={styles.clearlist} onClick={() => action()}>
+      Clear List
+    </button>
+  );
 }
-
 
 export default ClearListButton;

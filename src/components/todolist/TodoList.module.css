@@ -4,12 +4,3 @@
   margin: 0 auto;
   position: relative;
 }
-
-.container:empty::before {
-  content: 'Nothing to do 🤷‍♂️';
-  display: block;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 180px;
-}

@@ -2,17 +2,15 @@ import React from 'react';
 import styles from './TodoItem.module.css';
 import checkmarksvg from '../../assets/checkmark.svg';
 
-function TodoItem({ isChecked = false }) {
+function TodoItem({ isDone, title, todoId, toggleDone }) {
   return (
     <article
-      className={`${styles.todo} ${
-        isChecked ? styles.checked : styles.unchecked
-      }`}
+      className={`${styles.todo} ${isDone ? styles.checked : styles.unchecked}`}
     >
-      <div className={styles.icon}>
-        {isChecked && <img src={checkmarksvg} alt="Checkmark" />}
+      <div className={styles.icon} onClick={() => toggleDone(todoId)}>
+        {isDone && <img src={checkmarksvg} alt="Checkmark" />}
       </div>
-      <div className={styles.description}>Step One: Eat all the candy</div>
+      <div className={styles.description}>{title}</div>
     </article>
   );
 }
