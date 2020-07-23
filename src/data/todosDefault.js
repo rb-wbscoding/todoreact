@@ -1,8 +1,8 @@
-function generateID() {
+export function generateID() {
   return Math.floor(Math.random() * (99999 - 1) + 1);
 }
 
-const todosDefault = [
+export const todosDefault = [
   {
     id: generateID(),
     title: 'Step One: Eat all the candy',
@@ -19,5 +19,3 @@ const todosDefault = [
     isDone: false
   }
 ];
-
-export default todosDefault;
