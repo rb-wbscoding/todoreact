@@ -62,7 +62,7 @@
 .form textarea {
   width: 100%;
   margin-bottom: 20px;
-  font-family: var(--font-family);
+  font-family: 'Nunito', sans-serif;
   padding: 10px 16px;
   border: none;
   border-radius: 6px;
