@@ -15,8 +15,16 @@ function App() {
 
   const toggleDone = (id) => {
     const newTodos = [...todos];
+
     const todo = newTodos.find((todo) => todo.id === id);
     todo.isDone = !todo.isDone;
+
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+
     setTodos(newTodos);
   };
 
@@ -36,7 +44,7 @@ function App() {
     <div className="App">
       <Header />
       <AddButton action={toggleBottomOverlay} />
-      <TodoList todos={todos} toggleDone={toggleDone} />
+      <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />
       <ClearListButton action={toggleConfirmOverlay} />
       {isConfirmOverlayVisible && (
         <ConfirmOverlay

@@ -3,7 +3,7 @@ import styles from './TodoItem.module.css';
 import checkmarksvg from '../../assets/checkmark.svg';
 import trashsvg from '../../assets/trash.svg';
 
-function TodoItem({ isDone, title, todoId, toggleDone }) {
+function TodoItem({ isDone, title, todoId, toggleDone, deleteTodo }) {
   return (
     <article
       className={`${styles.todo} ${isDone ? styles.checked : styles.unchecked}`}
@@ -12,7 +12,7 @@ function TodoItem({ isDone, title, todoId, toggleDone }) {
         {isDone && <img src={checkmarksvg} alt="Checkmark" />}
       </div>
       <div className={styles.description}>{title}</div>
-      <div className={styles.icon}>
+      <div className={styles.icon} onClick={() => deleteTodo(todoId)}>
         <img src={trashsvg} alt="Trash" />
       </div>
     </article>
