@@ -22,9 +22,7 @@ function App() {
 
   // add todo
   // edit todo
-  // check off todo
   // delete todo
-  // clear the list
 
   const clearList = () => setTodos([]);
 
