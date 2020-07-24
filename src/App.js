@@ -95,12 +95,14 @@ function App() {
         <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
       )}
 
-      {isConfirmOverlayVisible && (
-        <ConfirmOverlay
-          toggleOverlay={toggleConfirmOverlay}
-          clearList={clearList}
-        />
-      )}
+      <AnimatePresence>
+        {isConfirmOverlayVisible && (
+          <ConfirmOverlay
+            toggleOverlay={toggleConfirmOverlay}
+            clearList={clearList}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isBottomOverlayVisible && (

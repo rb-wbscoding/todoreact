@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './ConfirmOverlay.module.css';
+import { motion } from 'framer-motion';
+import { fadeInBackground, fadeInOverlay } from '../../animations';
 
 function ConfirmOverlay({ toggleOverlay, clearList }) {
   const handleClearButton = () => {
@@ -9,8 +11,8 @@ function ConfirmOverlay({ toggleOverlay, clearList }) {
 
   return (
     <>
-      <div className={styles.background}></div>
-      <div className={styles.confirmdialog}>
+      <motion.div className={styles.background} {...fadeInBackground} />
+      <motion.div className={styles.confirmdialog} {...fadeInOverlay}>
         <p className={styles.confirmdialogp}>Are you sure?</p>
         <button
           className={styles.confirmdelete}
@@ -21,7 +23,7 @@ function ConfirmOverlay({ toggleOverlay, clearList }) {
         <button className={styles.canceldelete} onClick={() => toggleOverlay()}>
           Cancel
         </button>
-      </div>
+      </motion.div>
     </>
   );
 }
