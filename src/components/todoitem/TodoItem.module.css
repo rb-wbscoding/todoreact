@@ -1,3 +1,25 @@
+:root {
+  --primary: #0074d9;
+  --item-checked-bg: #00000011;
+  --item-unchecked-bg: #0074d922;
+  --item-icon-bg: #fff;
+  --item-icon-border: solid 1px transparent;
+  --item-checkmark-color: #111;
+  --item-trash-bg: #0074d944;
+  --item-trash-color: #0d68b8;
+}
+
+.dark {
+  --primary: #bb86fc;
+  --item-checked-bg: none;
+  --item-unchecked-bg: #bb86fc22;
+  --item-icon-bg: rgba(255, 255, 255, 0.07);
+  --item-icon-border: solid 1px #fff;
+  --item-checkmark-color: #fff;
+  --item-trash-bg: #bb86fc44;
+  --item-trash-color: #cda8fa;
+}
+
 .todo {
   border-radius: 6px;
   display: flex;
@@ -8,11 +30,11 @@
 }
 
 .checked {
-  background-color: #00000011;
+  background-color: var(--item-checked-bg);
 }
 
 .unchecked {
-  background-color: #0074d922;
+  background-color: var(--item-unchecked-bg);
 }
 
 .icon {
@@ -20,7 +42,8 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: var(--item-icon-bg);
+  border: var(--item-icon-border);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -37,7 +60,9 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #0074d944;
+  background-color: var(--item-trash-bg);
+  border: solid 1px transparent;
+  color: var(--item-trash-color);
   display: grid;
   place-items: center;
   cursor: pointer;

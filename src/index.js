@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+import 'style/reset.css';
+import 'style/index.css';
+import App from './App';
+import { DarkmodeContextProvider } from 'context';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DarkmodeContextProvider>
+      <App />
+    </DarkmodeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
