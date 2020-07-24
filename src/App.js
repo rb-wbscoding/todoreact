@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
-import Header from './components/header/Header';
-import AddButton from './components/addbutton/AddButton';
-import ConfirmOverlay from './components/confirmoverlay/ConfirmOverlay';
-import ClearListButton from './components/clearlistbutton/ClearListButton';
-import TodoList from './components/todolist';
-import InputOverlay from './components/inputoverlay';
-import { todosDefault, generateID } from './data/todosDefault';
+import Header from 'components/header';
+import AddButton from 'components/addbutton';
+import ConfirmOverlay from 'components/confirmoverlay';
+import ClearListButton from 'components/clearlistbutton';
+import TodoList from 'components/todolist';
+import InputOverlay from 'components/inputoverlay';
+
+import { todosDefault, generateID } from 'data';
 
 function App() {
   const [todos, setTodos] = useState(todosDefault);

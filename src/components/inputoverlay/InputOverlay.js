@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import styles from './InputOverlay.module.css';
-import closesvg from '../../assets/close.svg';
 import { motion } from 'framer-motion';
-import { slideUpOverlay, fadeIn } from '../../animations';
+
+import styles from './InputOverlay.module.css';
+import { slideUpOverlay, fadeIn } from 'animations';
+import closesvg from 'assets/close.svg';
 
 function InputOverlay({
   mode = 'add',

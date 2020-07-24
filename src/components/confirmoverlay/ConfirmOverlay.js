@@ -1,7 +1,8 @@
 import React from 'react';
-import styles from './ConfirmOverlay.module.css';
 import { motion } from 'framer-motion';
-import { fadeIn } from '../../animations';
+
+import styles from './ConfirmOverlay.module.css';
+import { fadeIn } from 'animations';
 
 function ConfirmOverlay({ toggleOverlay, clearList }) {
   const handleClearButton = () => {

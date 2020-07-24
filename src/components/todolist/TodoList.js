@@ -2,8 +2,8 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from './TodoList.module.css';
-import TodoItem from '../todoitem';
-import { slideItems, fadeIn } from '../../animations';
+import { slideItems, fadeIn } from 'animations';
+import TodoItem from 'components/todoitem';
 
 function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
   return (

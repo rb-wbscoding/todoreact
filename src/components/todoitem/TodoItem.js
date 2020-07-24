@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from './TodoItem.module.css';
-import checkmarksvg from '../../assets/checkmark.svg';
-import trashsvg from '../../assets/trash.svg';
+import checkmarksvg from 'assets/checkmark.svg';
+import trashsvg from 'assets/trash.svg';
 
 function TodoItem({
   isDone,
