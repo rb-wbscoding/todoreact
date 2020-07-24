@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from './TodoList.module.css';
 import TodoItem from '../todoitem';
-import { slideItems } from '../../animations';
+import { slideItems, fadeIn } from '../../animations';
 
 function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
   return (
@@ -22,7 +22,15 @@ function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
           </motion.div>
         ))}
       </AnimatePresence>
-      {todos.length === 0 && <>Nothing to do 🤷‍♂️</>}
+
+      {todos.length === 0 && (
+        <motion.div {...fadeIn} transition={{ delay: 1 }}>
+          Nothing to do{' '}
+          <span role="img" aria-label="emoji">
+            🤷‍♂️
+          </span>
+        </motion.div>
+      )}
     </motion.main>
   );
 }

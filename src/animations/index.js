@@ -1,6 +1,5 @@
 import slideUpOverlay from './slide-up-overlay';
-import fadeInOverlay from './fade-in-overlay';
-import fadeInBackground from './fade-in-bg';
+import fadeIn from './fade-in';
 import slideItems from './slide-items';
 
-export { slideUpOverlay, fadeInOverlay, fadeInBackground, slideItems };
+export { slideUpOverlay, fadeIn, slideItems };
