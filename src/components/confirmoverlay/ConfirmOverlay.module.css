@@ -1,17 +1,39 @@
+:root {
+  --primary: #0074d9;
+  --dialog-bg: var(--primary);
+  --dialog-color: #fff;
+  --confirm-btn-bg: #fff;
+  --confirm-btn-color: #0074d9;
+  --cancel-btn-bg: #0074d9;
+  --cancel-btn-bg-hover: #0066be;
+  --cancel-btn-color: #fff;
+}
+
+.dark {
+  --primary: #bb86fc;
+  --dialog-bg: var(--primary);
+  --dialog-color: #37234e;
+  --confirm-btn-bg: #37234e;
+  --confirm-btn-color: var(--primary);
+  --cancel-btn-bg: transparent;
+  --cancel-btn-bg-hover: #9f70d8;
+  --cancel-btn-color: #37234e;
+}
+
 .background {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #00000033;
+  background-color: #00000055;
   z-index: 120;
   transition: opacity 0.3s;
 }
 
 .confirmdialog {
-  background-color: #0074d9;
-  color: #fff;
+  background-color: var(--dialog-bg);
+  color: var(--dialog-color);
   border-radius: 6px;
   padding: 30px;
   min-width: 285px;
@@ -32,8 +54,8 @@
 
 .confirmdelete {
   border: none;
-  background-color: #fff;
-  color: #0074d9;
+  background-color: var(--confirm-btn-bg);
+  color: var(--confirm-btn-color);
   padding: 18px 32px;
   border-radius: 6px;
   font-weight: 700;
@@ -52,8 +74,8 @@
 
 .canceldelete {
   border: none;
-  background-color: #0074d9;
-  color: #fff;
+  background-color: var(--cancel-btn-bg);
+  color: var(--cancel-btn-color);
   padding: 18px 32px;
   border-radius: 6px;
   font-weight: 700;
@@ -63,10 +85,10 @@
 }
 
 .canceldelete:hover {
-  background-color: #0066be;
+  background-color: var(--cancel-btn-bg-hover);
 }
 
 .canceldelete:active {
-  background-color: #0066be;
+  background-color: var(--cancel-btn-bg-hover);
   transform: scale(0.9);
 }
