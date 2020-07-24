@@ -1,26 +1,46 @@
+:root {
+  --primary: #0074d9;
+  --clearlist-btn-bg: transparent;
+  --clearlist-btn-border: transparent;
+  --clearlist-btn-color: #00000088;
+  --clearlist-btn-box-shadow: 1px 1px 3px #00000022, 1px 1px 9px #00000022;
+  --clearlist-btn-box-shadow-active: 1px 1px 3px #00000033,
+    1px 1px 9px #00000033;
+}
+
+.dark {
+  --primary: #bb86fc;
+  --clearlist-btn-bg: rgba(255, 255, 255, 0.07);
+  --clearlist-btn-border: transparent;
+  --clearlist-btn-color: #aaa;
+  --clearlist-btn-box-shadow: 1px 1px 3px #00000022, 1px 1px 9px #00000022;
+  --clearlist-btn-box-shadow-active: 1px 1px 3px #00000033,
+    1px 1px 9px #00000033;
+}
+
 .clearlistcontainer {
   position: relative;
 }
 
 .clearlist {
-  background-color: transparent;
-  border: none;
+  background-color: var(--clearlist-btn-bg);
+  border: var(--clearlist-btn-border);
   font-weight: 700;
   padding: 18px 24px;
   border-radius: 26px;
   display: block;
   margin: 0 auto 200px;
-  color: #00000088;
+  color: var(--clearlist-btn-color);
   transition: box-shadow 0.2s, transform 0.2s;
-  box-shadow: 1px 1px 3px #00000022, 1px 1px 9px #00000022;
+  box-shadow: var(--clearlist-btn-box-shadow);
   cursor: pointer;
 }
 
 .clearlist:hover {
-  box-shadow: 1px 1px 3px #00000033, 1px 1px 9px #00000033;
+  box-shadow: var(--clearlist-btn-box-shadow-active);
 }
 
 .clearlist:active {
-  box-shadow: 1px 1px 3px #00000033, 1px 1px 9px #00000033;
+  box-shadow: var(--clearlist-btn-box-shadow-active);
   transform: scale(0.9);
 }
