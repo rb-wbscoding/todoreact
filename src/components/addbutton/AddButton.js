@@ -10,7 +10,7 @@ function AddButton({ showInputOverlay }) {
   };
 
   return (
-    <button class={styles.addtodo} onClick={onClickHandler}>
+    <button className={styles.addtodo} onClick={onClickHandler}>
       <img src={plussvg} alt="Checkmark" />
     </button>
   );

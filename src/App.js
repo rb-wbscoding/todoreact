@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
 import './App.css';
 import Header from './components/header/Header';
@@ -84,16 +84,21 @@ function App() {
     <div className="App">
       <Header />
       <AddButton showInputOverlay={showInputOverlay} />
-      <TodoList
-        todos={todos}
-        toggleDone={toggleDone}
-        deleteTodo={deleteTodo}
-        showInputOverlay={showInputOverlay}
-      />
 
-      {todos.length > 0 && (
-        <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
-      )}
+      <AnimateSharedLayout>
+        <TodoList
+          todos={todos}
+          toggleDone={toggleDone}
+          deleteTodo={deleteTodo}
+          showInputOverlay={showInputOverlay}
+        />
+
+        {todos.length > 0 && (
+          <motion.div layout>
+            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+          </motion.div>
+        )}
+      </AnimateSharedLayout>
 
       <AnimatePresence>
         {isConfirmOverlayVisible && (

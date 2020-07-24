@@ -4,6 +4,7 @@
   align-items: center;
   position: relative;
   margin-bottom: 10px;
+  transition: background-color 0.3s;
 }
 
 .checked {
@@ -35,6 +36,7 @@
   transition: opacity 0.2s;
   overflow: hidden;
   word-break: break-word;
+  transition: opacity 0.3s;
 }
 
 .checked .description {
