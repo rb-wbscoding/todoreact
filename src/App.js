@@ -13,7 +13,7 @@ import { todosDefault, generateID } from 'data';
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(true);
+  const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
