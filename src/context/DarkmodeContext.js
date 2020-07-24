@@ -1,12 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
 
 const DarkmodeContext = createContext({
-  isDarkmode: true,
+  isDarkmode: null,
   setIsDarkmode: () => {}
 });
 
 const DarkmodeContextProvider = ({ children }) => {
-  const [isDarkmode, setIsDarkmode] = useState(true);
+  const [isDarkmode, setIsDarkmode] = useState(null);
 
   const toggleDarkmode = () => setIsDarkmode(!isDarkmode);
 
@@ -20,7 +20,7 @@ const DarkmodeContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('colormode', isDarkmode ? 'dark' : 'light');
     if (isDarkmode) document.body.classList.add('dark');
-    else document.body.classList.remove('dark');
+    else if (isDarkmode !== null) document.body.classList.remove('dark');
   }, [isDarkmode]);
 
   return (
