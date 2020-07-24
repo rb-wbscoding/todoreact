@@ -9,13 +9,14 @@ function TodoItem({
   todoId,
   toggleDone,
   showInputOverlay,
-  deleteTodo
+  toggleConfirmOverlayItemDelete
 }) {
   const onClickCheckmark = () => toggleDone(todoId);
 
   const onClickDescription = () => showInputOverlay('edit', todoId);
 
-  const onClickTrash = () => deleteTodo(todoId);
+  const onClickTrash = () => {
+    toggleConfirmOverlayItemDelete(todoId);}
 
   return (
     <article

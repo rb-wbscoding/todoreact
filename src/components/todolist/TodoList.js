@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './TodoList.module.css';
 import TodoItem from '../todoitem';
 
-function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
+function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfirmOverlayItemDelete }) {
   return (
     <main className={styles.container}>
       {todos.length > 0
@@ -15,6 +15,7 @@ function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
               toggleDone={toggleDone}
               showInputOverlay={showInputOverlay}
               deleteTodo={deleteTodo}
+              toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
             />
           ))
         : 'Nothing to do 🤷‍♂️'}

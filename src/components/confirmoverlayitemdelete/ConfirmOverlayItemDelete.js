@@ -1,10 +1,11 @@
 import React from 'react';
-import styles from './ConfirmOverlay.module.css';
+import styles from './ConfirmOverlayItemDelete.module.css';
 
-function ConfirmOverlay({ toggleOverlay, clearList }) {
+//need to get Item Id
+function ConfirmOverlayItemDelete({ toggleOverlayItemDelete, todoIdDel, deleteTodo }) {
   const handleClearButton = () => {
-    clearList(); 
-    toggleOverlay();
+    deleteTodo(todoIdDel);
+    toggleOverlayItemDelete();
   };
 
   return (
@@ -16,9 +17,9 @@ function ConfirmOverlay({ toggleOverlay, clearList }) {
           className={styles.confirmdelete}
           onClick={() => handleClearButton()}
         >
-          Clear
+          Clear Todo
         </button>
-        <button className={styles.canceldelete} onClick={() => toggleOverlay()}>
+        <button className={styles.canceldelete} onClick={() => toggleOverlayItemDelete()}>
           Cancel
         </button>
       </div>
@@ -26,4 +27,4 @@ function ConfirmOverlay({ toggleOverlay, clearList }) {
   );
 }
 
-export default ConfirmOverlay;
+export default ConfirmOverlayItemDelete;
