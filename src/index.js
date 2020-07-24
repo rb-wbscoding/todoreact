@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
-import './index.css';
+import 'style/reset.css';
+import 'style/index.css';
 import App from './App';
 import { DarkmodeContextProvider } from 'context';
 
