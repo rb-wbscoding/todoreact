@@ -3,13 +3,21 @@
   --item-checked-bg: #00000011;
   --item-unchecked-bg: #0074d922;
   --item-icon-bg: #fff;
-  --item-trash-bg: #0074d944;
+  --item-icon-border: solid 1px transparent;
   --item-checkmark-color: #111;
+  --item-trash-bg: #0074d944;
   --item-trash-color: #0d68b8;
 }
 
 .dark {
   --primary: #bb86fc;
+  --item-checked-bg: none;
+  --item-unchecked-bg: #bb86fc22;
+  --item-icon-bg: rgba(255, 255, 255, 0.07);
+  --item-icon-border: solid 1px #fff;
+  --item-checkmark-color: #fff;
+  --item-trash-bg: #bb86fc44;
+  --item-trash-color: #cda8fa;
 }
 
 .todo {
@@ -35,6 +43,7 @@
   height: 30px;
   border-radius: 50%;
   background-color: var(--item-icon-bg);
+  border: var(--item-icon-border);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -52,6 +61,8 @@
   height: 30px;
   border-radius: 50%;
   background-color: var(--item-trash-bg);
+  border: solid 1px transparent;
+  color: var(--item-trash-color);
   display: grid;
   place-items: center;
   cursor: pointer;
