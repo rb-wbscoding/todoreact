@@ -7,6 +7,7 @@ import ClearListButton from './components/clearlistbutton/ClearListButton';
 import TodoList from './components/todolist';
 import InputOverlay from './components/inputoverlay';
 import { todosDefault, generateID } from './data/todosDefault';
+import Quote from "./components/quote/quote";
 
 function App() {
   const [todos, setTodos] = useState(todosDefault);
@@ -89,9 +90,13 @@ function App() {
         showInputOverlay={showInputOverlay}
       />
 
+      <Quote />
+
       {todos.length > 0 && (
         <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
       )}
+
+     
 
       {isConfirmOverlayVisible && (
         <ConfirmOverlay
