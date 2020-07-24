@@ -28,7 +28,7 @@ function TodoItem({
       <div className={styles.description} onClick={onClickDescription}>
         {title}
       </div>
-      <div className={styles.icon} onClick={onClickTrash}>
+      <div className={styles.trash} onClick={onClickTrash}>
         <img src={trashsvg} alt="Trash" />
       </div>
     </article>
