@@ -24,7 +24,11 @@ function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
       </AnimatePresence>
 
       {todos.length === 0 && (
-        <motion.div {...fadeIn} transition={{ delay: 1 }}>
+        <motion.div
+          {...fadeIn}
+          transition={{ delay: 1 }}
+          style={{ textAlign: 'center' }}
+        >
           Nothing to do{' '}
           <span role="img" aria-label="emoji">
             🤷‍♂️
