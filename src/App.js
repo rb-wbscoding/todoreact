@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+
 import './App.css';
 import Header from './components/header/Header';
 import AddButton from './components/addbutton/AddButton';
@@ -100,15 +102,19 @@ function App() {
         />
       )}
 
-      {isBottomOverlayVisible && (
-        <InputOverlay
-          mode={bottomOverlayMode}
-          initialValue={getEditValue()}
-          addTodo={addTodo}
-          editTodo={editTodo}
-          hideInputOverlay={hideInputOverlay}
-        />
-      )}
+      <AnimatePresence>
+        {isBottomOverlayVisible && (
+          <>
+            <InputOverlay
+              mode={bottomOverlayMode}
+              initialValue={getEditValue()}
+              addTodo={addTodo}
+              editTodo={editTodo}
+              hideInputOverlay={hideInputOverlay}
+            />
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
