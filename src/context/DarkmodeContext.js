@@ -1,14 +1,14 @@
 import React, { createContext, useState, useEffect } from 'react';
 
 const DarkmodeContext = createContext({
-  isDarkmode: false,
+  isDarkmode: true,
   setIsDarkmode: () => {}
 });
 
 const DarkmodeContextProvider = ({ children }) => {
-  const [isDarkmode, setIsDarkmode] = useState(false);
+  const [isDarkmode, setIsDarkmode] = useState(true);
 
-  const toggleDarkode = () => setIsDarkmode(!isDarkmode);
+  const toggleDarkmode = () => setIsDarkmode(!isDarkmode);
 
   // Check localStorage if a Darkmode value was saved
   useEffect(() => {
@@ -19,10 +19,12 @@ const DarkmodeContextProvider = ({ children }) => {
   // Update localStorage whenever Darkmode gets toggled on/off
   useEffect(() => {
     localStorage.setItem('colormode', isDarkmode ? 'dark' : 'light');
+    if (isDarkmode) document.body.classList.add('dark');
+    else document.body.classList.remove('dark');
   }, [isDarkmode]);
 
   return (
-    <DarkmodeContext.Provider value={{ isDarkmode, toggleDarkode }}>
+    <DarkmodeContext.Provider value={{ isDarkmode, toggleDarkmode }}>
       {children}
     </DarkmodeContext.Provider>
   );
