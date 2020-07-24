@@ -1,27 +1,37 @@
+:root {
+  --primary: #0074d9;
+  --add-button-hover-bg: #0066be;
+}
+
+.dark {
+  --primary: #bb86fc;
+  --add-button-hover-bg: #9c6dd4;
+}
+
 .addtodo {
-    position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    border: none;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #0074d9;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 1px 2px 3px #00000022, 1px 2px 9px #00000022;
-    transition: transform 0.2s, background-color 0.2s;
-    z-index: 115;
-    cursor: pointer;
-  }
-  
-  .addtodo:hover {
-    background-color: #0066be;
-  }
-  
-  .addtodo:active {
-    transform: translateX(-50%) scale(0.9);
-  }
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 2px 3px #00000022, 1px 2px 9px #00000022;
+  transition: transform 0.2s, background-color 0.2s;
+  z-index: 115;
+  cursor: pointer;
+}
+
+.addtodo:hover {
+  background-color: var(--add-button-hover-bg);
+}
+
+.addtodo:active {
+  transform: translateX(-50%) scale(0.9);
+}
