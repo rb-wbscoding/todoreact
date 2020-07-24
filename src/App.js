@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
-import './App.css';
 import Header from './components/header/Header';
 import AddButton from './components/addbutton/AddButton';
 import ConfirmOverlay from './components/confirmoverlay/ConfirmOverlay';
