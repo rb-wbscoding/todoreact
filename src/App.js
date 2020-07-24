@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
 import Header from 'components/header';
@@ -11,12 +11,22 @@ import InputOverlay from 'components/inputoverlay';
 import { todosDefault, generateID } from 'data';
 
 function App() {
-  const [todos, setTodos] = useState(todosDefault);
+  const [todos, setTodos] = useState([]);
 
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
+
+  useEffect(() => {
+    const savedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (savedTodos) setTodos(savedTodos);
+    else setTodos(todosDefault);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   // CRUD METHODS
   const addTodo = (title) => {
