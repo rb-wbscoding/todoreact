@@ -4,6 +4,7 @@
   align-items: center;
   position: relative;
   margin-bottom: 10px;
+  transition: background-color 0.3s;
 }
 
 .checked {
@@ -23,6 +24,29 @@
   display: grid;
   place-items: center;
   cursor: pointer;
+  transform: scale(1);
+  transition: transform 0.2s;
+}
+
+.icon:active {
+  transform: scale(0.8);
+}
+
+.trash {
+  margin: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #0074d944;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0.2s;
+}
+
+.trash:active {
+  transform: scale(0.8);
 }
 
 .description {
@@ -35,6 +59,7 @@
   transition: opacity 0.2s;
   overflow: hidden;
   word-break: break-word;
+  transition: opacity 0.3s;
 }
 
 .checked .description {

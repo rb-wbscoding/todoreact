@@ -1,7 +1,8 @@
 import React from 'react';
+
 import styles from './TodoItem.module.css';
-import checkmarksvg from '../../assets/checkmark.svg';
-import trashsvg from '../../assets/trash.svg';
+import checkmarksvg from 'assets/checkmark.svg';
+import trashsvg from 'assets/trash.svg';
 
 function TodoItem({
   isDone,
@@ -27,7 +28,7 @@ function TodoItem({
       <div className={styles.description} onClick={onClickDescription}>
         {title}
       </div>
-      <div className={styles.icon} onClick={onClickTrash}>
+      <div className={styles.trash} onClick={onClickTrash}>
         <img src={trashsvg} alt="Trash" />
       </div>
     </article>

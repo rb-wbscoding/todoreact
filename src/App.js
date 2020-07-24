@@ -1,43 +1,24 @@
 import React, { useState } from 'react';
-import './App.css';
-import Header from './components/header/Header';
-import AddButton from './components/addbutton/AddButton';
-import ConfirmOverlay from './components/confirmoverlay/ConfirmOverlay';
-import ClearListButton from './components/clearlistbutton/ClearListButton';
-import TodoList from './components/todolist';
-import InputOverlay from './components/inputoverlay';
-import { todosDefault, generateID } from './data/todosDefault';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+
+import Header from 'components/header';
+import AddButton from 'components/addbutton';
+import ConfirmOverlay from 'components/confirmoverlay';
+import ClearListButton from 'components/clearlistbutton';
+import TodoList from 'components/todolist';
+import InputOverlay from 'components/inputoverlay';
+
+import { todosDefault, generateID } from 'data';
 
 function App() {
   const [todos, setTodos] = useState(todosDefault);
 
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
-
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
 
-  const getEditValue = () => {
-    if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
-    return '';
-  };
-
-  const showInputOverlay = (mode, id) => {
-    if (mode === 'add') {
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('add');
-    } else {
-      setEditTodoId(id);
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('edit');
-    }
-  };
-
-  const hideInputOverlay = () => {
-    setEditTodoId(null);
-    setIsBottomOverlayVisible(false);
-  };
-
+  // CRUD METHODS
   const addTodo = (title) => {
     const newTodo = {
       id: generateID(),
@@ -58,6 +39,11 @@ function App() {
     setTodos(newTodos);
   };
 
+  const getEditValue = () => {
+    if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
+    return '';
+  };
+
   const toggleDone = (id) => {
     const newTodos = [...todos];
     const todo = newTodos.find((todo) => todo.id === id);
@@ -75,40 +61,68 @@ function App() {
 
   const clearList = () => setTodos([]);
 
+  // OVERLAY METHODS
   const toggleConfirmOverlay = () =>
     setIsConfirmOverlayVisible(!isConfirmOverlayVisible);
+
+  const showInputOverlay = (mode, id) => {
+    if (mode === 'add') {
+      setIsBottomOverlayVisible(true);
+      setBottomOverlayMode('add');
+    } else {
+      setEditTodoId(id);
+      setIsBottomOverlayVisible(true);
+      setBottomOverlayMode('edit');
+    }
+  };
+
+  const hideInputOverlay = () => {
+    setEditTodoId(null);
+    setIsBottomOverlayVisible(false);
+  };
 
   return (
     <div className="App">
       <Header />
       <AddButton showInputOverlay={showInputOverlay} />
-      <TodoList
-        todos={todos}
-        toggleDone={toggleDone}
-        deleteTodo={deleteTodo}
-        showInputOverlay={showInputOverlay}
-      />
 
-      {todos.length > 0 && (
-        <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
-      )}
-
-      {isConfirmOverlayVisible && (
-        <ConfirmOverlay
-          toggleOverlay={toggleConfirmOverlay}
-          clearList={clearList}
+      <AnimateSharedLayout>
+        <TodoList
+          todos={todos}
+          toggleDone={toggleDone}
+          deleteTodo={deleteTodo}
+          showInputOverlay={showInputOverlay}
         />
-      )}
 
-      {isBottomOverlayVisible && (
-        <InputOverlay
-          mode={bottomOverlayMode}
-          initialValue={getEditValue()}
-          addTodo={addTodo}
-          editTodo={editTodo}
-          hideInputOverlay={hideInputOverlay}
-        />
-      )}
+        {todos.length > 0 && (
+          <motion.div layout>
+            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+          </motion.div>
+        )}
+      </AnimateSharedLayout>
+
+      <AnimatePresence>
+        {isConfirmOverlayVisible && (
+          <ConfirmOverlay
+            toggleOverlay={toggleConfirmOverlay}
+            clearList={clearList}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isBottomOverlayVisible && (
+          <>
+            <InputOverlay
+              mode={bottomOverlayMode}
+              initialValue={getEditValue()}
+              addTodo={addTodo}
+              editTodo={editTodo}
+              hideInputOverlay={hideInputOverlay}
+            />
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
 import styles from './InputOverlay.module.css';
-import closesvg from '../../assets/close.svg';
+import { slideUpOverlay, fadeIn } from 'animations';
+import closesvg from 'assets/close.svg';
 
 function InputOverlay({
   mode = 'add',
@@ -51,8 +54,8 @@ function InputOverlay({
 
   return (
     <>
-      <div className={styles.background}></div>
-      <div className={styles.overlay}>
+      <motion.div className={styles.background} {...fadeIn} />
+      <motion.div className={styles.overlay} {...slideUpOverlay}>
         <button className={styles.cancelbutton} onClick={onClickCancel}>
           <img src={closesvg} alt="Checkmark" />
         </button>
@@ -68,7 +71,7 @@ function InputOverlay({
             Save
           </button>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
