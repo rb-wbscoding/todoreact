@@ -1,3 +1,27 @@
+:root {
+  --primary: #0074d9;
+  --overlay-bg: var(--primary);
+  --overlay-cancel-btn-bg: #fff;
+  --ocerlay-cancel-btn-color: var(--primary);
+  --overlay-title-color: #fff;
+  --overlay-textarea-bg: #00000044;
+  --overlay-textarea-color: #fff;
+  --overlay-submit-btn-bg: #fff;
+  --overlay-submit-btn-color: var(--primary);
+}
+
+.dark {
+  --primary: #bb86fc;
+  --overlay-bg: var(--primary);
+  --overlay-cancel-btn-bg: #fff;
+  --ocerlay-cancel-btn-color: #37234e;
+  --overlay-title-color: #37234e;
+  --overlay-textarea-bg: #00000011;
+  --overlay-textarea-color: #37234e;
+  --overlay-submit-btn-bg: #37234e;
+  --overlay-submit-btn-color: var(--primary);
+}
+
 .background {
   position: fixed;
   top: 0;
@@ -14,7 +38,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #0074d9;
+  background-color: var(--overlay-bg);
   padding: 20px;
   z-index: 125;
   transition: bottom 0.3s;
@@ -29,7 +53,8 @@
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: var(--overlay-cancel-btn-bg);
+  color: var(--ocerlay-cancel-btn-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +77,7 @@
 }
 
 .form h2 {
-  color: #fff;
+  color: var(--overlay-title-color);
   font-weight: 700;
   font-size: 2rem;
   margin: 0 4px 15px;
@@ -67,8 +92,8 @@
   border: none;
   border-radius: 6px;
   resize: none;
-  background-color: #00000044;
-  color: #fff;
+  background-color: var(--overlay-textarea-bg);
+  color: var(--overlay-textarea-color);
   line-height: 1.8;
   font-size: 1rem;
   box-shadow: inset 1px 1px 3px #00000033, inset 1px 1px 9px #00000033;
@@ -78,7 +103,8 @@
   margin: 0 auto;
   display: block;
   border: none;
-  background-color: #fff;
+  background-color: var(--overlay-submit-btn-bg);
+  color: var(--overlay-submit-btn-color);
   padding: 20px 36px;
   border-radius: 6px;
   font-weight: 700;

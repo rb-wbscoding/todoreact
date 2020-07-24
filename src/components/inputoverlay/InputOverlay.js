@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
+
+import { DarkmodeContext } from 'context';
 
 import styles from './InputOverlay.module.css';
 import { slideUpOverlay, fadeIn } from 'animations';
-import closesvg from 'assets/close.svg';
+import { ReactComponent as CloseSvg } from 'assets/close.svg';
 
 function InputOverlay({
   mode = 'add',
@@ -12,6 +14,8 @@ function InputOverlay({
   initialValue,
   hideInputOverlay
 }) {
+  const { isDarkmode } = useContext(DarkmodeContext);
+
   const [inputValue, setInputValue] = useState(
     mode === 'add' ? '' : initialValue
   );
@@ -55,9 +59,12 @@ function InputOverlay({
   return (
     <>
       <motion.div className={styles.background} {...fadeIn} />
-      <motion.div className={styles.overlay} {...slideUpOverlay}>
+      <motion.div
+        className={`${styles.overlay} ${isDarkmode && styles.dark}`}
+        {...slideUpOverlay}
+      >
         <button className={styles.cancelbutton} onClick={onClickCancel}>
-          <img src={closesvg} alt="Checkmark" />
+          <CloseSvg />
         </button>
         <div className={styles.form}>
           <h2>{mode === 'edit' ? 'Edit Todo' : 'Add Todo'}</h2>
