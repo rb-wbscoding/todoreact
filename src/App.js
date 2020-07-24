@@ -13,32 +13,11 @@ function App() {
   const [todos, setTodos] = useState(todosDefault);
 
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
-
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
 
-  const getEditValue = () => {
-    if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
-    return '';
-  };
-
-  const showInputOverlay = (mode, id) => {
-    if (mode === 'add') {
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('add');
-    } else {
-      setEditTodoId(id);
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('edit');
-    }
-  };
-
-  const hideInputOverlay = () => {
-    setEditTodoId(null);
-    setIsBottomOverlayVisible(false);
-  };
-
+  // CRUD METHODS
   const addTodo = (title) => {
     const newTodo = {
       id: generateID(),
@@ -59,6 +38,11 @@ function App() {
     setTodos(newTodos);
   };
 
+  const getEditValue = () => {
+    if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
+    return '';
+  };
+
   const toggleDone = (id) => {
     const newTodos = [...todos];
     const todo = newTodos.find((todo) => todo.id === id);
@@ -76,8 +60,25 @@ function App() {
 
   const clearList = () => setTodos([]);
 
+  // OVERLAY METHODS
   const toggleConfirmOverlay = () =>
     setIsConfirmOverlayVisible(!isConfirmOverlayVisible);
+
+  const showInputOverlay = (mode, id) => {
+    if (mode === 'add') {
+      setIsBottomOverlayVisible(true);
+      setBottomOverlayMode('add');
+    } else {
+      setEditTodoId(id);
+      setIsBottomOverlayVisible(true);
+      setBottomOverlayMode('edit');
+    }
+  };
+
+  const hideInputOverlay = () => {
+    setEditTodoId(null);
+    setIsBottomOverlayVisible(false);
+  };
 
   return (
     <div className="App">
