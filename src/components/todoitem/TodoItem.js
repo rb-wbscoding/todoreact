@@ -12,7 +12,7 @@ function TodoItem({
   todoId,
   toggleDone,
   showInputOverlay,
-  deleteTodo
+  toggleConfirmOverlayItemDelete
 }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
@@ -20,7 +20,9 @@ function TodoItem({
 
   const onClickDescription = () => showInputOverlay('edit', todoId);
 
-  const onClickTrash = () => deleteTodo(todoId);
+  const onClickTrash = () => {
+    toggleConfirmOverlayItemDelete(todoId);
+  };
 
   return (
     <article

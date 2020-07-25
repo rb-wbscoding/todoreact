@@ -10,7 +10,7 @@ function ConfirmOverlay({ toggleOverlay, clearList }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
   const handleClearButton = () => {
-    clearList();
+    clearList(); 
     toggleOverlay();
   };
 

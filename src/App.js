@@ -4,7 +4,9 @@ import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import Header from 'components/header';
 import AddButton from 'components/addbutton';
 import ConfirmOverlay from 'components/confirmoverlay';
+import ConfirmOverlayItemDelete from 'components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
 import ClearListButton from 'components/clearlistbutton';
+import Quote from 'components/quote/Quote';
 import TodoList from 'components/todolist';
 import InputOverlay from 'components/inputoverlay';
 
@@ -14,9 +16,14 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
+  const [
+    isConfirmOverlayItemDeleteVisible,
+    setIsConfirmOverlayItemDeleteVisible
+  ] = useState(false);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
+  const [todoIdDel, setTodoIdDel] = useState(null);
 
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos'));
@@ -65,8 +72,12 @@ function App() {
 
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
-
     setTodos(newTodos);
+  };
+
+  const toggleConfirmOverlayItemDelete = (id) => {
+    setTodoIdDel(id);
+    setIsConfirmOverlayItemDeleteVisible(!isConfirmOverlayItemDeleteVisible);
   };
 
   const clearList = () => setTodos([]);
@@ -100,8 +111,9 @@ function App() {
         <TodoList
           todos={todos}
           toggleDone={toggleDone}
-          deleteTodo={deleteTodo}
+          //deleteTodo={deleteTodo}
           showInputOverlay={showInputOverlay}
+          toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
         />
 
         {todos.length > 0 && (
@@ -111,6 +123,8 @@ function App() {
         )}
       </AnimateSharedLayout>
 
+      <Quote />
+
       <AnimatePresence>
         {isConfirmOverlayVisible && (
           <ConfirmOverlay
@@ -119,6 +133,14 @@ function App() {
           />
         )}
       </AnimatePresence>
+
+      {isConfirmOverlayItemDeleteVisible && (
+        <ConfirmOverlayItemDelete
+          toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
+          todoIdDel={todoIdDel}
+          deleteTodo={deleteTodo}
+        />
+      )}
 
       <AnimatePresence>
         {isBottomOverlayVisible && (

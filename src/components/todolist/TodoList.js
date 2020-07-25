@@ -5,7 +5,7 @@ import styles from './TodoList.module.css';
 import { slideItems, fadeIn } from 'animations';
 import TodoItem from 'components/todoitem';
 
-function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
+function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfirmOverlayItemDelete }) {
   return (
     <motion.main key="main" className={styles.container} layout>
       <AnimatePresence>
@@ -18,6 +18,7 @@ function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay }) {
               toggleDone={toggleDone}
               showInputOverlay={showInputOverlay}
               deleteTodo={deleteTodo}
+              toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
             />
           </motion.div>
         ))}

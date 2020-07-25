@@ -29,7 +29,7 @@
   padding: 18px 24px;
   border-radius: 26px;
   display: block;
-  margin: 0 auto 200px;
+  margin: 0 auto 60px;
   color: var(--clearlist-btn-color);
   transition: box-shadow 0.2s, transform 0.2s;
   box-shadow: var(--clearlist-btn-box-shadow);
