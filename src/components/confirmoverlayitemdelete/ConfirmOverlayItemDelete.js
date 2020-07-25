@@ -2,7 +2,11 @@ import React from 'react';
 import styles from './ConfirmOverlayItemDelete.module.css';
 
 //need to get Item Id
-function ConfirmOverlayItemDelete({ toggleOverlayItemDelete, todoIdDel, deleteTodo }) {
+function ConfirmOverlayItemDelete({
+  toggleOverlayItemDelete,
+  todoIdDel,
+  deleteTodo
+}) {
   const handleClearButton = () => {
     deleteTodo(todoIdDel);
     toggleOverlayItemDelete();
@@ -19,7 +23,10 @@ function ConfirmOverlayItemDelete({ toggleOverlayItemDelete, todoIdDel, deleteTo
         >
           Clear Todo
         </button>
-        <button className={styles.canceldelete} onClick={() => toggleOverlayItemDelete()}>
+        <button
+          className={styles.canceldelete}
+          onClick={() => toggleOverlayItemDelete()}
+        >
           Cancel
         </button>
       </div>
