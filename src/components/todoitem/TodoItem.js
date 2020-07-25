@@ -21,7 +21,8 @@ function TodoItem({
   const onClickDescription = () => showInputOverlay('edit', todoId);
 
   const onClickTrash = () => {
-    toggleConfirmOverlayItemDelete(todoId);}
+    toggleConfirmOverlayItemDelete(todoId);
+  };
 
   return (
     <article

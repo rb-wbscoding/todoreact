@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
 import Header from 'components/header';
 import AddButton from 'components/addbutton';
 import ConfirmOverlay from 'components/confirmoverlay';
+import ConfirmOverlayItemDelete from 'components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
 import ClearListButton from 'components/clearlistbutton';
 import Quote from 'components/quote/Quote';
 import TodoList from 'components/todolist';
@@ -109,12 +109,12 @@ function App() {
 
       <AnimateSharedLayout>
         <TodoList
-        todos={todos}
-        toggleDone={toggleDone}
-        //deleteTodo={deleteTodo}
-        showInputOverlay={showInputOverlay}
-        toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
-      />
+          todos={todos}
+          toggleDone={toggleDone}
+          //deleteTodo={deleteTodo}
+          showInputOverlay={showInputOverlay}
+          toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
+        />
 
         {todos.length > 0 && (
           <motion.div layout>
@@ -122,6 +122,8 @@ function App() {
           </motion.div>
         )}
       </AnimateSharedLayout>
+
+      <Quote />
 
       <AnimatePresence>
         {isConfirmOverlayVisible && (
@@ -132,7 +134,7 @@ function App() {
         )}
       </AnimatePresence>
 
-{isConfirmOverlayItemDeleteVisible && (
+      {isConfirmOverlayItemDeleteVisible && (
         <ConfirmOverlayItemDelete
           toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
           todoIdDel={todoIdDel}
