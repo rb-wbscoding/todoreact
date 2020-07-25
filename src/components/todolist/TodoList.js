@@ -1,14 +1,17 @@
 import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import styles from './TodoList.module.css';
-import TodoItem from '../todoitem';
+import { slideItems, fadeIn } from 'animations';
+import TodoItem from 'components/todoitem';
 
 function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfirmOverlayItemDelete }) {
   return (
-    <main className={styles.container}>
-      {todos.length > 0
-        ? todos.map((todo) => (
+    <motion.main key="main" className={styles.container} layout>
+      <AnimatePresence>
+        {todos.map((todo) => (
+          <motion.div key={todo.id} {...slideItems} layout>
             <TodoItem
-              key={todo.id}
               todoId={todo.id}
               title={todo.title}
               isDone={todo.isDone}
@@ -17,9 +20,23 @@ function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfi
               deleteTodo={deleteTodo}
               toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
             />
-          ))
-        : 'Nothing to do 🤷‍♂️'}
-    </main>
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {todos.length === 0 && (
+        <motion.div
+          {...fadeIn}
+          transition={{ delay: 1 }}
+          style={{ textAlign: 'center' }}
+        >
+          Nothing to do{' '}
+          <span role="img" aria-label="emoji">
+            🤷‍♂️
+          </span>
+        </motion.div>
+      )}
+    </motion.main>
   );
 }
 

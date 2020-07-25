@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { DarkmodeContext } from 'context';
+
 import styles from './TodoItem.module.css';
-import checkmarksvg from '../../assets/checkmark.svg';
-import trashsvg from '../../assets/trash.svg';
+import { ReactComponent as CheckmarkSvg } from 'assets/checkmark.svg';
+import { ReactComponent as TrashSvg } from 'assets/trash.svg';
 
 function TodoItem({
   isDone,
@@ -11,6 +14,8 @@ function TodoItem({
   showInputOverlay,
   toggleConfirmOverlayItemDelete
 }) {
+  const { isDarkmode } = useContext(DarkmodeContext);
+
   const onClickCheckmark = () => toggleDone(todoId);
 
   const onClickDescription = () => showInputOverlay('edit', todoId);
@@ -20,16 +25,18 @@ function TodoItem({
 
   return (
     <article
-      className={`${styles.todo} ${isDone ? styles.checked : styles.unchecked}`}
+      className={`${styles.todo} ${
+        isDone ? styles.checked : styles.unchecked
+      } ${isDarkmode && styles.dark}`}
     >
       <div className={styles.icon} onClick={onClickCheckmark}>
-        {isDone && <img src={checkmarksvg} alt="Checkmark" />}
+        {isDone && <CheckmarkSvg />}
       </div>
       <div className={styles.description} onClick={onClickDescription}>
         {title}
       </div>
-      <div className={styles.icon} onClick={onClickTrash}>
-        <img src={trashsvg} alt="Trash" />
+      <div className={styles.trash} onClick={onClickTrash}>
+        <TrashSvg />
       </div>
     </article>
   );
