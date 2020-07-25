@@ -7,14 +7,17 @@ import ClearListButton from './components/clearlistbutton/ClearListButton';
 import TodoList from './components/todolist';
 import InputOverlay from './components/inputoverlay';
 import { todosDefault, generateID } from './data/todosDefault';
-import Quote from "./components/quote/quote";
+import Quote from './components/quote/Quote';
 import ConfirmOverlayItemDelete from './components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
 
 function App() {
   const [todos, setTodos] = useState(todosDefault);
 
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
-  const [isConfirmOverlayItemDeleteVisible, setIsConfirmOverlayItemDeleteVisible] = useState(false);
+  const [
+    isConfirmOverlayItemDeleteVisible,
+    setIsConfirmOverlayItemDeleteVisible
+  ] = useState(false);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
@@ -69,16 +72,16 @@ function App() {
 
     setTodos(newTodos);
   };
-  
+
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
-  const toggleConfirmOverlayItemDelete = (id) =>{
+  const toggleConfirmOverlayItemDelete = (id) => {
     setTodoIdDel(id);
-  setIsConfirmOverlayItemDeleteVisible(!isConfirmOverlayItemDeleteVisible);}
-
+    setIsConfirmOverlayItemDeleteVisible(!isConfirmOverlayItemDeleteVisible);
+  };
 
   const clearList = () => setTodos([]);
 
@@ -97,11 +100,11 @@ function App() {
         toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
       />
 
-      <Quote />
-
       {todos.length > 0 && (
         <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
       )}
+
+      <Quote />
 
       {isConfirmOverlayVisible && (
         <ConfirmOverlay
