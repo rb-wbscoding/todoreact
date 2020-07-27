@@ -19,7 +19,7 @@ function App() {
   const [
     isConfirmOverlayItemDeleteVisible,
     setIsConfirmOverlayItemDeleteVisible
-  ] = useState(true);
+  ] = useState(false);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
@@ -135,13 +135,15 @@ function App() {
         )}
       </AnimatePresence>
 
-      {isConfirmOverlayItemDeleteVisible && (
-        <ConfirmOverlayItemDelete
-          toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
-          todoIdDel={todoIdDel}
-          deleteTodo={deleteTodo}
-        />
-      )}
+      <AnimatePresence>
+        {isConfirmOverlayItemDeleteVisible && (
+          <ConfirmOverlayItemDelete
+            toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
+            todoIdDel={todoIdDel}
+            deleteTodo={deleteTodo}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isBottomOverlayVisible && (
