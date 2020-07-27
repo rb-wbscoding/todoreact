@@ -19,7 +19,7 @@ function App() {
   const [
     isConfirmOverlayItemDeleteVisible,
     setIsConfirmOverlayItemDeleteVisible
-  ] = useState(false);
+  ] = useState(true);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
