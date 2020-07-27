@@ -9,7 +9,8 @@ function TodoItem({
   todoId,
   toggleDone,
   showInputOverlay,
-  toggleConfirmOverlayItemDelete
+  toggleConfirmOverlayItemDelete,
+  dragStart
 }) {
   const onClickCheckmark = () => toggleDone(todoId);
 
@@ -18,8 +19,12 @@ function TodoItem({
   const onClickTrash = () => {
     toggleConfirmOverlayItemDelete(todoId);}
 
+  const dragStarted = () => {
+    
+    dragStart(todoId)};
+
   return (
-    <article
+    <article draggable="true" onDragStart={dragStarted}
       className={`${styles.todo} ${isDone ? styles.checked : styles.unchecked}`}
     >
       <div className={styles.icon} onClick={onClickCheckmark}>

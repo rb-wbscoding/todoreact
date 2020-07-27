@@ -19,6 +19,7 @@ function App() {
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
   const [todoIdDel, setTodoIdDel] = useState(null);
+  const [todoIdDrag, setTodoIdDrag] = useState(null);
 
   const getEditValue = () => {
     if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
@@ -85,6 +86,24 @@ function App() {
   const toggleConfirmOverlay = () =>
     setIsConfirmOverlayVisible(!isConfirmOverlayVisible);
 
+  const dragStart=(id)=>{
+    setTodoIdDrag(id)
+    //todos.id.style.opracity="0.3"
+    //todos.map(x=>(x.id===))
+    //const f = dataTransfer.getData();
+    //e.target.style.opacity="0.3";
+    //setTodoIdDrag=(id)
+    console.log(todoIdDrag)
+  }
+
+  /*const allowDrop=(e)=>e.preventDefault();
+
+  const drop=(e)=>{
+    e.preventDefault();
+    var data=e.dataTansfer.getData(todos);
+    e.target.
+  }*/
+
   return (
     <div className="App">
       <Header />
@@ -95,6 +114,8 @@ function App() {
         //deleteTodo={deleteTodo}
         showInputOverlay={showInputOverlay}
         toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
+        dragStart={dragStart}
+        //todoId={todoId}
       />
 
       <Quote />
