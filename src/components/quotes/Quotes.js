@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { DarkmodeContext } from 'context';
 
-import styles from './Quote.module.css';
+import styles from './Quotes.module.css';
 import { fadeIn } from 'animations';
 
 function Quote() {

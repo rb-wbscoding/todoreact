@@ -6,7 +6,7 @@ import AddButton from 'components/addbutton';
 import ConfirmOverlay from 'components/confirmoverlay';
 import ConfirmOverlayItemDelete from 'components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
 import ClearListButton from 'components/clearlistbutton';
-import Quote from 'components/quote/Quote';
+import Quotes from 'components/quotes/Quotes';
 import TodoList from 'components/todolist';
 import InputOverlay from 'components/inputoverlay';
 
@@ -122,7 +122,7 @@ function App() {
         />
 
         <motion.div layout>
-          <Quote />
+          <Quotes />
         </motion.div>
       </AnimateSharedLayout>
 
