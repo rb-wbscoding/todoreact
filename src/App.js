@@ -4,8 +4,10 @@ import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import Header from 'components/header';
 import AddButton from 'components/addbutton';
 import ConfirmOverlay from 'components/confirmoverlay';
+import ConfirmOverlayDone from 'components/confirmoverlaydone';
 import ConfirmOverlayItemDelete from 'components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
-import ClearListButton from 'components/clearlistbutton';
+//import ClearListButton from 'components/clearlistbutton';
+import ButtonHolder from 'components/buttonholder';
 import Quotes from 'components/quotes/Quotes';
 import TodoList from 'components/todolist';
 import InputOverlay from 'components/inputoverlay';
@@ -16,6 +18,7 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
+  const [isConfirmOverlayDoneVisible, setIsConfirmOverlayDoneVisible] = useState(false);
   const [
     isConfirmOverlayItemDeleteVisible,
     setIsConfirmOverlayItemDeleteVisible
@@ -99,9 +102,17 @@ function App() {
 
   const clearList = () => setTodos([]);
 
+  const clearDone = () =>{
+    const newTodos = todos.filter(todo=>!todo.isDone)
+    setTodos(newTodos);
+  }
+
   // OVERLAY METHODS
   const toggleConfirmOverlay = () =>
     setIsConfirmOverlayVisible(!isConfirmOverlayVisible);
+
+  const toggleConfirmOverlayDone = () =>{
+    setIsConfirmOverlayDoneVisible(!isConfirmOverlayDoneVisible);}
 
   const showInputOverlay = (mode, id) => {
     if (mode === 'add') {
@@ -127,7 +138,10 @@ function App() {
         <AnimatePresence>
           {todos.length > 0 && (
             <motion.div key="clearlist" layout>
-              <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+              <ButtonHolder 
+              toggleConfirmOverlay={toggleConfirmOverlay} 
+              toggleConfirmOverlayDone={toggleConfirmOverlayDone}
+              />      
             </motion.div>
           )}
 
@@ -155,6 +169,16 @@ function App() {
           />
         )}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {isConfirmOverlayDoneVisible && (
+          <ConfirmOverlayDone
+            toggleOverlayDone={toggleConfirmOverlayDone}
+            clearDone={clearDone}
+          />
+        )}
+      </AnimatePresence>
+
 
       <AnimatePresence>
         {isConfirmOverlayItemDeleteVisible && (

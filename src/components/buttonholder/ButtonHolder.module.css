@@ -1,0 +1,10 @@
+.buttonholder{
+    display: flex;
+    flex-direction: row;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 100px 20px 0;
+    justify-content: space-between;
+
+
+}
