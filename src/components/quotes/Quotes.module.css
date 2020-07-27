@@ -11,7 +11,7 @@
 .container {
   border-radius: 10px;
   margin: 0 auto 200px;
-  max-width: 550px;
+  max-width: 500px;
   background-color: var(--quote-bg);
   color: var(--quote-color);
   width: 80vw;

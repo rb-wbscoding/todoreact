@@ -18,14 +18,14 @@ function Quote() {
       })
       .then(function (data) {
         const randomnumber = Math.floor(Math.random() * data.length);
-        const textquote = data[randomnumber].text || null;
-        const authorquote = data[randomnumber].author || null;
+        const textquote = data[randomnumber].text || "Couldn't fetch quote";
+        const authorquote = data[randomnumber].author || 'Unknown';
         setSingleQuote({ quote: textquote, author: authorquote });
 
         setInterval(function getonequote() {
           const randomnumber = Math.floor(Math.random() * data.length);
-          const textquote2 = data[randomnumber].text || null;
-          const authorquote2 = data[randomnumber].author || null;
+          const textquote2 = data[randomnumber].text || "Couldn't fetch quote";
+          const authorquote2 = data[randomnumber].author || 'Unknown';
           setSingleQuote({ quote: textquote2, author: authorquote2 });
         }, 10000);
       })
