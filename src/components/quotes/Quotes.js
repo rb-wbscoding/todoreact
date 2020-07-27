@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 import { DarkmodeContext } from 'context';
 
-import styles from './Quote.module.css';
+import styles from './Quotes.module.css';
 import { fadeIn } from 'animations';
 
 function Quote() {
