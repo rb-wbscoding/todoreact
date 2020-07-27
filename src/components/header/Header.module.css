@@ -47,6 +47,9 @@
 .iconcontainer {
   flex: 1;
   text-align: right;
-  cursor: pointer;
   color: var(--header-switch-color);
+}
+
+.iconcontainer svg {
+  cursor: pointer;
 }

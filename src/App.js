@@ -108,18 +108,18 @@ function App() {
       <AddButton showInputOverlay={showInputOverlay} />
 
       <AnimateSharedLayout>
+        {todos.length > 0 && (
+          <motion.div layout>
+            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+          </motion.div>
+        )}
+
         <TodoList
           todos={todos}
           toggleDone={toggleDone}
           showInputOverlay={showInputOverlay}
           toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
         />
-
-        {todos.length > 0 && (
-          <motion.div layout>
-            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
-          </motion.div>
-        )}
 
         <motion.div layout>
           <Quote />
@@ -135,13 +135,15 @@ function App() {
         )}
       </AnimatePresence>
 
-      {isConfirmOverlayItemDeleteVisible && (
-        <ConfirmOverlayItemDelete
-          toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
-          todoIdDel={todoIdDel}
-          deleteTodo={deleteTodo}
-        />
-      )}
+      <AnimatePresence>
+        {isConfirmOverlayItemDeleteVisible && (
+          <ConfirmOverlayItemDelete
+            toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
+            todoIdDel={todoIdDel}
+            deleteTodo={deleteTodo}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isBottomOverlayVisible && (

@@ -18,8 +18,12 @@ function Header() {
       <div className={styles.container}>
         <LogoSvg className={styles.logo} />
         <TitleSvg className={styles.title} />
-        <div className={styles.iconcontainer} onClick={onClickHandler}>
-          {isDarkmode ? <SunSvg /> : <MoonSvg />}
+        <div className={styles.iconcontainer}>
+          {isDarkmode ? (
+            <SunSvg onClick={onClickHandler} />
+          ) : (
+            <MoonSvg onClick={onClickHandler} />
+          )}
         </div>
       </div>
     </header>

@@ -1,10 +1,10 @@
 :root {
   --primary: #0074d9;
-  --item-checked-bg: #00000011;
+  --item-checked-bg: transparent;
   --item-unchecked-bg: #0074d922;
   --item-icon-bg: #fff;
-  --item-icon-border: solid 1px transparent;
-  --item-checkmark-color: #111;
+  --item-icon-border: solid 1px var(--primary);
+  --item-checkmark-color: var(--primary);
   --item-trash-bg: #0074d944;
   --item-trash-color: #0d68b8;
 }
@@ -44,6 +44,7 @@
   border-radius: 50%;
   background-color: var(--item-icon-bg);
   border: var(--item-icon-border);
+  color: var(--item-checkmark-color);
   display: grid;
   place-items: center;
   cursor: pointer;
