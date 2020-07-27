@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { DarkmodeContext } from 'context';
 
 import styles from './Quote.module.css';
+import { fadeIn } from 'animations';
 
 function Quote() {
   const { isDarkmode } = useContext(DarkmodeContext);
@@ -41,10 +43,15 @@ function Quote() {
   }, []);
 
   return (
-    <div className={`${styles.container} ${isDarkmode && styles.dark}`}>
+    <motion.div
+      key={singleQuote.author}
+      className={`${styles.container} ${isDarkmode && styles.dark}`}
+      {...fadeIn}
+      transition={{ duration: 0.4 }}
+    >
       <h2 className={styles.quote}>{singleQuote.quote}</h2>
       <p className={styles.author}>{singleQuote.author} </p>
-    </div>
+    </motion.div>
   );
 }
 
