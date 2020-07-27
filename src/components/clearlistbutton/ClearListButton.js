@@ -12,12 +12,14 @@ function ClearListButton({ toggleConfirmOverlay }) {
   };
 
   return (
-    <button
-      className={`${styles.clearlist} ${isDarkmode && styles.dark}`}
-      onClick={onClickHandler}
-    >
-      Clear List
-    </button>
+    <div className={styles.container}>
+      <button
+        className={`${styles.clearlist} ${isDarkmode && styles.dark}`}
+        onClick={onClickHandler}
+      >
+        Clear List
+      </button>
+    </div>
   );
 }
 
