@@ -12,7 +12,6 @@ import ConfirmOverlayItemDelete from './components/confirmoverlayitemdelete/Conf
 
 function App() {
   const [todos, setTodos] = useState(todosDefault);
-
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
   const [isConfirmOverlayItemDeleteVisible, setIsConfirmOverlayItemDeleteVisible] = useState(false);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
