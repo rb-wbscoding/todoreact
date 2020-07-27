@@ -8,6 +8,7 @@ import { fadeIn } from 'animations';
 
 function Quote() {
   const { isDarkmode } = useContext(DarkmodeContext);
+
   const [singleQuote, setSingleQuote] = useState({ quote: '', author: '' });
 
   useEffect(() => {
@@ -16,20 +17,20 @@ function Quote() {
         return response.json();
       })
       .then(function (data) {
-        const randomNumber = Math.floor(Math.random() * data.length);
-        const textQuote = data[randomNumber].text;
-        const authorQuote = data[randomNumber].author;
-        setSingleQuote({ quote: textQuote, author: authorQuote });
-        setInterval(() => {
-          const randomNumber = Math.floor(Math.random() * data.length);
-          const textQuote2 = data[randomNumber].text;
-          const authorQuote2 = data[randomNumber].author;
-          setSingleQuote({ quote: textQuote2, author: authorQuote2 });
+        const randomnumber = Math.floor(Math.random() * data.length);
+        const textquote = data[randomnumber].text || "Couldn't fetch quote";
+        const authorquote = data[randomnumber].author || 'Unknown';
+        setSingleQuote({ quote: textquote, author: authorquote });
+
+        setInterval(function getonequote() {
+          const randomnumber = Math.floor(Math.random() * data.length);
+          const textquote2 = data[randomnumber].text || "Couldn't fetch quote";
+          const authorquote2 = data[randomnumber].author || 'Unknown';
+          setSingleQuote({ quote: textquote2, author: authorquote2 });
         }, 10000);
       })
       .catch((error) => {
-        console.log('Error while fetching quote: ', error);
-        setSingleQuote({ quote: "Couldn't load quotes", author: 'Error' });
+        console.log('Error: ', error);
       });
   }, []);
 

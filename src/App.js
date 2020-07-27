@@ -30,8 +30,16 @@ function App() {
 
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos'));
-    if (savedTodos) setTodos(savedTodos);
-    else setTodos(todosDefault);
+
+    if (savedTodos) {
+      const newTodos = savedTodos.map((todo) => ({
+        ...todo,
+        dateAdded: new Date(todo.dateAdded),
+        dateDone: todo.dateDone !== null ? new Date(todo.dateDone) : null
+      }));
+
+      setTodos(newTodos);
+    } else setTodos(todosDefault);
   }, []);
 
   useEffect(() => {
@@ -40,10 +48,14 @@ function App() {
 
   // CRUD METHODS
   const addTodo = (title) => {
+    if (title.trim() === '') return alert('Please enter text.');
+
     const newTodo = {
       id: generateID(),
       title,
-      isDone: false
+      isDone: false,
+      dateAdded: new Date(),
+      dateDone: null
     };
     const newTodos = [...todos, newTodo];
 
@@ -51,6 +63,8 @@ function App() {
   };
 
   const editTodo = (title) => {
+    if (title.trim() === '') return alert('Please enter text.');
+
     const newTodos = [...todos];
     const todo = newTodos.find((todo) => todo.id === editTodoId);
 
@@ -69,6 +83,9 @@ function App() {
     const todo = newTodos.find((todo) => todo.id === id);
 
     todo.isDone = !todo.isDone;
+
+    if (todo.isDone) todo.dateDone = new Date();
+    else todo.dateDone = null;
 
     setTodos(newTodos);
   };
@@ -116,29 +133,33 @@ function App() {
   return (
     <div>
       <Header />
-      <AddButton showInputOverlay={showInputOverlay} />
-      
+
       <AnimateSharedLayout>
-        {todos.length > 0 && (
-          <motion.div layout>
-            <ButtonHolder 
+        <AnimatePresence>
+          {todos.length > 0 && (
+            <motion.div key="clearlist" layout>
+              <ButtonHolder 
               toggleConfirmOverlay={toggleConfirmOverlay} 
               toggleConfirmOverlayDone={toggleConfirmOverlayDone}
               />      
+            </motion.div>
+          )}
+
+          <TodoList
+            key="todolist"
+            todos={todos}
+            toggleDone={toggleDone}
+            showInputOverlay={showInputOverlay}
+            toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
+          />
+
+          <motion.div key="quotescomponent" layout>
+            <Quotes />
           </motion.div>
-        )}
-         </AnimateSharedLayout>
+        </AnimatePresence>
+      </AnimateSharedLayout>
 
-        <TodoList
-          todos={todos}
-          toggleDone={toggleDone}
-          showInputOverlay={showInputOverlay}
-          toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
-        />
-
-        <motion.div layout>
-          <Quotes />
-        </motion.div>
+      <AddButton showInputOverlay={showInputOverlay} />
 
       <AnimatePresence>
         {isConfirmOverlayVisible && (

@@ -11,7 +11,7 @@
 .container {
   border-radius: 10px;
   margin: 0 auto 200px;
-  max-width: 550px;
+  max-width: 500px;
   background-color: var(--quote-bg);
   color: var(--quote-color);
   width: 80vw;
@@ -21,6 +21,7 @@
 .quote {
   padding: 0px 15px;
   text-align: center;
+  font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.5;
   word-break: break-word;
@@ -30,7 +31,7 @@
 .author {
   padding: 0px 15px;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   word-break: break-word;
 }
