@@ -42,7 +42,7 @@ function Quote() {
       transition={{ duration: 0.4 }}
     >
       <h2 className={styles.quote}>{singleQuote.quote}</h2>
-      <p className={styles.author}>{singleQuote.author} </p>
+      <p className={styles.author}>{singleQuote.author}</p>
     </motion.div>
   );
 }

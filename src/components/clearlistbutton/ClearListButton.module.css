@@ -14,15 +14,14 @@
   --clearlist-btn-color: #bbb;
 }
 
-
 .clearlist {
   background-color: var(--clearlist-btn-bg);
   border: var(--clearlist-btn-border);
   font-weight: 700;
   padding: 14px 20px;
   border-radius: 6px;
+  margin-left: 20px;
   display: inline-block;
-  margin: 0 auto 20px;
   color: var(--clearlist-btn-color);
   transition: background-color 0.2s, transform 0.2s;
   cursor: pointer;
