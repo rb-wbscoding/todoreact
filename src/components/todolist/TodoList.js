@@ -16,7 +16,7 @@ function TodoList({
 }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const sortItems = () => {
+  const sortItems = (todos) => {
     const uncheckedItems = todos
       .filter((todo) => !todo.isDone)
       .sort((a, b) => new Date(a.dateAdded - new Date(b.dateAdded)));
@@ -30,7 +30,7 @@ function TodoList({
 
   return (
     <main className={`${styles.container} ${isDarkmode && styles.dark}`}>
-      {sortItems().map((todo) => (
+      {sortItems(todos).map((todo) => (
         <motion.div key={todo.id} {...slideItems} layout>
           <TodoItem
             todoId={todo.id}
