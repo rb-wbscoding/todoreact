@@ -45,6 +45,8 @@ function App() {
 
   // CRUD METHODS
   const addTodo = (title) => {
+    if (title.trim() === '') return alert('Please enter text.');
+
     const newTodo = {
       id: generateID(),
       title,
@@ -58,6 +60,8 @@ function App() {
   };
 
   const editTodo = (title) => {
+    if (title.trim() === '') return alert('Please enter text.');
+
     const newTodos = [...todos];
     const todo = newTodos.find((todo) => todo.id === editTodoId);
 
