@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import { DarkmodeContext } from 'context';
 
 import styles from './TodoList.module.css';
 import { slideItems, fadeIn } from 'animations';
@@ -12,8 +14,14 @@ function TodoList({
   showInputOverlay,
   toggleConfirmOverlayItemDelete
 }) {
+  const { isDarkmode } = useContext(DarkmodeContext);
+
   return (
-    <motion.main key="main" className={styles.container} layout>
+    <motion.main
+      key="main"
+      className={`${styles.container} ${isDarkmode && styles.dark}`}
+      layout
+    >
       <AnimatePresence>
         {todos.map((todo) => (
           <motion.div key={todo.id} {...slideItems} layout>
