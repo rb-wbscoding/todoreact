@@ -34,8 +34,8 @@ function App() {
         dateAdded: new Date(todo.dateAdded),
         dateDone: todo.dateDone !== null ? new Date(todo.dateDone) : null
       }));
+
       setTodos(newTodos);
-      console.log(newTodos);
     } else setTodos(todosDefault);
   }, []);
 
@@ -55,7 +55,6 @@ function App() {
     const newTodos = [...todos, newTodo];
 
     setTodos(newTodos);
-    console.log(newTodos);
   };
 
   const editTodo = (title) => {
@@ -79,6 +78,7 @@ function App() {
     todo.isDone = !todo.isDone;
 
     if (todo.isDone) todo.dateDone = new Date();
+    else todo.dateDone = null;
 
     setTodos(newTodos);
   };
@@ -118,7 +118,6 @@ function App() {
   return (
     <div>
       <Header />
-      <AddButton showInputOverlay={showInputOverlay} />
 
       <AnimateSharedLayout>
         {todos.length > 0 && (
@@ -138,6 +137,8 @@ function App() {
           <Quotes />
         </motion.div>
       </AnimateSharedLayout>
+
+      <AddButton showInputOverlay={showInputOverlay} />
 
       <AnimatePresence>
         {isConfirmOverlayVisible && (
