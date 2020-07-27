@@ -1,7 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+
+import { DarkmodeContext } from 'context';
+
 import styles from './Quote.module.css';
 
 function Quote() {
+  const { isDarkmode } = useContext(DarkmodeContext);
+
   const [quotes, setQuotes] = useState([]);
   const [singleQuote, setSingleQuote] = useState({ quote: '', author: '' });
 
@@ -36,13 +41,9 @@ function Quote() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <h4 className={styles.quotestyle}>
-        {singleQuote.quote}
-        <br />
-        <br />
-        {singleQuote.author}{' '}
-      </h4>
+    <div className={`${styles.container} ${isDarkmode && styles.dark}`}>
+      <h2 className={styles.quote}>{singleQuote.quote}</h2>
+      <p className={styles.author}>{singleQuote.author} </p>
     </div>
   );
 }
