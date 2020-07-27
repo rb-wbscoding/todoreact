@@ -111,7 +111,6 @@ function App() {
         <TodoList
           todos={todos}
           toggleDone={toggleDone}
-          //deleteTodo={deleteTodo}
           showInputOverlay={showInputOverlay}
           toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
         />
@@ -121,9 +120,11 @@ function App() {
             <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
           </motion.div>
         )}
-      </AnimateSharedLayout>
 
-      <Quote />
+        <motion.div layout>
+          <Quote />
+        </motion.div>
+      </AnimateSharedLayout>
 
       <AnimatePresence>
         {isConfirmOverlayVisible && (
