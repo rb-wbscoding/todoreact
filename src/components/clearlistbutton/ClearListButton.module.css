@@ -7,9 +7,9 @@
 
 .dark {
   --primary: #bb86fc;
-  --clearlist-btn-bg: rgba(255, 255, 255, 0.07);
+  --clearlist-btn-bg: rgba(255, 255, 255, 0.14);
   --clearlist-btn-border: transparent;
-  --clearlist-btn-color: #aaa;
+  --clearlist-btn-color: #bbb;
 }
 
 .container {
