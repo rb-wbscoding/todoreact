@@ -73,6 +73,7 @@ function InputOverlay({
             onChange={onChangeHandler}
             onKeyDown={(e) => onKeyDownHandler(e)}
             rows="3"
+            autoFocus
           ></textarea>
           <button className={styles.submitbutton} onClick={onClickSubmit}>
             Save

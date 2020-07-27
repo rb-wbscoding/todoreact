@@ -45,6 +45,8 @@ function App() {
 
   // CRUD METHODS
   const addTodo = (title) => {
+    if (title.trim() === '') return alert('Please enter text.');
+
     const newTodo = {
       id: generateID(),
       title,
@@ -58,6 +60,8 @@ function App() {
   };
 
   const editTodo = (title) => {
+    if (title.trim() === '') return alert('Please enter text.');
+
     const newTodos = [...todos];
     const todo = newTodos.find((todo) => todo.id === editTodoId);
 
@@ -120,22 +124,25 @@ function App() {
       <Header />
 
       <AnimateSharedLayout>
-        {todos.length > 0 && (
-          <motion.div layout>
-            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+        <AnimatePresence>
+          {todos.length > 0 && (
+            <motion.div key="clearlist" layout>
+              <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+            </motion.div>
+          )}
+
+          <TodoList
+            key="todolist"
+            todos={todos}
+            toggleDone={toggleDone}
+            showInputOverlay={showInputOverlay}
+            toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
+          />
+
+          <motion.div key="quotescomponent" layout>
+            <Quotes />
           </motion.div>
-        )}
-
-        <TodoList
-          todos={todos}
-          toggleDone={toggleDone}
-          showInputOverlay={showInputOverlay}
-          toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
-        />
-
-        <motion.div layout>
-          <Quotes />
-        </motion.div>
+        </AnimatePresence>
       </AnimateSharedLayout>
 
       <AddButton showInputOverlay={showInputOverlay} />

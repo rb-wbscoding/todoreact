@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { DarkmodeContext } from 'context';
 
@@ -16,7 +16,7 @@ function TodoList({
 }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const sortItems = () => {
+  const sortItems = (todos) => {
     const uncheckedItems = todos
       .filter((todo) => !todo.isDone)
       .sort((a, b) => new Date(a.dateAdded - new Date(b.dateAdded)));
@@ -29,25 +29,20 @@ function TodoList({
   };
 
   return (
-    <motion.main
-      className={`${styles.container} ${isDarkmode && styles.dark}`}
-      layout
-    >
-      <AnimatePresence>
-        {sortItems().map((todo) => (
-          <motion.div key={todo.id} {...slideItems} layout>
-            <TodoItem
-              todoId={todo.id}
-              title={todo.title}
-              isDone={todo.isDone}
-              toggleDone={toggleDone}
-              showInputOverlay={showInputOverlay}
-              deleteTodo={deleteTodo}
-              toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
-            />
-          </motion.div>
-        ))}
-      </AnimatePresence>
+    <main className={`${styles.container} ${isDarkmode && styles.dark}`}>
+      {sortItems(todos).map((todo) => (
+        <motion.div key={todo.id} {...slideItems} layout>
+          <TodoItem
+            todoId={todo.id}
+            title={todo.title}
+            isDone={todo.isDone}
+            toggleDone={toggleDone}
+            showInputOverlay={showInputOverlay}
+            deleteTodo={deleteTodo}
+            toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
+          />
+        </motion.div>
+      ))}
 
       {todos.length === 0 && (
         <motion.div
@@ -61,7 +56,7 @@ function TodoList({
           <div>Nothing to do</div>
         </motion.div>
       )}
-    </motion.main>
+    </main>
   );
 }
 
