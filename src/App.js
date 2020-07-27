@@ -27,8 +27,16 @@ function App() {
 
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos'));
-    if (savedTodos) setTodos(savedTodos);
-    else setTodos(todosDefault);
+
+    if (savedTodos) {
+      const newTodos = savedTodos.map((todo) => ({
+        ...todo,
+        dateAdded: new Date(todo.dateAdded),
+        dateDone: todo.dateDone !== null ? new Date(todo.dateDone) : null
+      }));
+      setTodos(newTodos);
+      console.log(newTodos);
+    } else setTodos(todosDefault);
   }, []);
 
   useEffect(() => {
@@ -40,11 +48,14 @@ function App() {
     const newTodo = {
       id: generateID(),
       title,
-      isDone: false
+      isDone: false,
+      dateAdded: new Date(),
+      dateDone: null
     };
     const newTodos = [...todos, newTodo];
 
     setTodos(newTodos);
+    console.log(newTodos);
   };
 
   const editTodo = (title) => {
@@ -66,6 +77,8 @@ function App() {
     const todo = newTodos.find((todo) => todo.id === id);
 
     todo.isDone = !todo.isDone;
+
+    if (todo.isDone) todo.dateDone = new Date();
 
     setTodos(newTodos);
   };
