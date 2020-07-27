@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 
 import { DarkmodeContext } from 'context';
@@ -9,7 +9,6 @@ import { fadeIn } from 'animations';
 function Quote() {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const [quotes, setQuotes] = useState([]);
   const [singleQuote, setSingleQuote] = useState({ quote: '', author: '' });
 
   useEffect(() => {
@@ -18,28 +17,21 @@ function Quote() {
         return response.json();
       })
       .then(function (data) {
-        setQuotes(data);
-        const randomNumber = Math.floor(Math.random() * data.length);
-        const textQuote = data[randomNumber].text;
-        const authorQuote = data[randomNumber].author;
-        setSingleQuote({ quote: textQuote, author: authorQuote });
+        const randomnumber = Math.floor(Math.random() * data.length);
+        const textquote = data[randomnumber].text || null;
+        const authorquote = data[randomnumber].author || null;
+        setSingleQuote({ quote: textquote, author: authorquote });
+
+        setInterval(function getonequote() {
+          const randomnumber = Math.floor(Math.random() * data.length);
+          const textquote2 = data[randomnumber].text || null;
+          const authorquote2 = data[randomnumber].author || null;
+          setSingleQuote({ quote: textquote2, author: authorquote2 });
+        }, 10000);
       })
       .catch((error) => {
-        console.log('Error while fetching quote: ', error);
-        setSingleQuote({ quote: "Couldn't load quotes", author: 'Error' });
+        console.log('Error: ', error);
       });
-  }, []);
-
-  const countRef = useRef(quotes);
-  countRef.current = quotes;
-
-  useEffect(() => {
-    setInterval(() => {
-      const randomNumber = Math.floor(Math.random() * countRef.current.length);
-      const textQuote2 = countRef.current[randomNumber].text;
-      const authorQuote2 = countRef.current[randomNumber].author;
-      setSingleQuote({ quote: textQuote2, author: authorQuote2 });
-    }, 10000);
   }, []);
 
   return (
