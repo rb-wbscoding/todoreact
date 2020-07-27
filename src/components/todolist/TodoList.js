@@ -16,14 +16,25 @@ function TodoList({
 }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
+  const sortItems = () => {
+    const uncheckedItems = todos
+      .filter((todo) => !todo.isDone)
+      .sort((a, b) => new Date(a.dateAdded - new Date(b.dateAdded)));
+
+    const checkedItems = todos
+      .filter((todo) => todo.isDone)
+      .sort((a, b) => new Date(b.dateDone - new Date(a.dateDone)));
+
+    return [...uncheckedItems, ...checkedItems];
+  };
+
   return (
     <motion.main
-      key="main"
       className={`${styles.container} ${isDarkmode && styles.dark}`}
       layout
     >
       <AnimatePresence>
-        {todos.map((todo) => (
+        {sortItems().map((todo) => (
           <motion.div key={todo.id} {...slideItems} layout>
             <TodoItem
               todoId={todo.id}
