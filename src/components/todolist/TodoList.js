@@ -1,14 +1,31 @@
-import React from 'react';
-import styles from './TodoList.module.css';
-import TodoItem from '../todoitem';
+import React, { useContext } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
-function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfirmOverlayItemDelete }) {
+import { DarkmodeContext } from 'context';
+
+import styles from './TodoList.module.css';
+import { slideItems, fadeIn } from 'animations';
+import TodoItem from 'components/todoitem';
+
+function TodoList({
+  todos,
+  toggleDone,
+  deleteTodo,
+  showInputOverlay,
+  toggleConfirmOverlayItemDelete
+}) {
+  const { isDarkmode } = useContext(DarkmodeContext);
+
   return (
-    <main className={styles.container}>
-      {todos.length > 0
-        ? todos.map((todo) => (
+    <motion.main
+      key="main"
+      className={`${styles.container} ${isDarkmode && styles.dark}`}
+      layout
+    >
+      <AnimatePresence>
+        {todos.map((todo) => (
+          <motion.div key={todo.id} {...slideItems} layout>
             <TodoItem
-              key={todo.id}
               todoId={todo.id}
               title={todo.title}
               isDone={todo.isDone}
@@ -17,9 +34,23 @@ function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfi
               deleteTodo={deleteTodo}
               toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
             />
-          ))
-        : 'Nothing to do 🤷‍♂️'}
-    </main>
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {todos.length === 0 && (
+        <motion.div
+          {...fadeIn}
+          transition={{ delay: 1 }}
+          className={styles.emptylist}
+        >
+          <span role="img" aria-label="emoji">
+            🤷‍♂️
+          </span>
+          <div>Nothing to do</div>
+        </motion.div>
+      )}
+    </motion.main>
   );
 }
 

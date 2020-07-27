@@ -1,45 +1,41 @@
-import React, { useState } from 'react';
-import './App.css';
-import Header from './components/header/Header';
-import AddButton from './components/addbutton/AddButton';
-import ConfirmOverlay from './components/confirmoverlay/ConfirmOverlay';
-import ClearListButton from './components/clearlistbutton/ClearListButton';
-import TodoList from './components/todolist';
-import InputOverlay from './components/inputoverlay';
-import { todosDefault, generateID } from './data/todosDefault';
-import Quote from "./components/quote/quote";
-import ConfirmOverlayItemDelete from './components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
+import React, { useState, useEffect } from 'react';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+
+import Header from 'components/header';
+import AddButton from 'components/addbutton';
+import ConfirmOverlay from 'components/confirmoverlay';
+import ConfirmOverlayItemDelete from 'components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
+import ClearListButton from 'components/clearlistbutton';
+import Quotes from 'components/quotes/Quotes';
+import TodoList from 'components/todolist';
+import InputOverlay from 'components/inputoverlay';
+
+import { todosDefault, generateID } from 'data';
 
 function App() {
-  const [todos, setTodos] = useState(todosDefault);
+  const [todos, setTodos] = useState([]);
+
   const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
-  const [isConfirmOverlayItemDeleteVisible, setIsConfirmOverlayItemDeleteVisible] = useState(false);
+  const [
+    isConfirmOverlayItemDeleteVisible,
+    setIsConfirmOverlayItemDeleteVisible
+  ] = useState(false);
   const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
   const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
   const [editTodoId, setEditTodoId] = useState(null);
   const [todoIdDel, setTodoIdDel] = useState(null);
 
-  const getEditValue = () => {
-    if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
-    return '';
-  };
+  useEffect(() => {
+    const savedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (savedTodos) setTodos(savedTodos);
+    else setTodos(todosDefault);
+  }, []);
 
-  const showInputOverlay = (mode, id) => {
-    if (mode === 'add') {
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('add');
-    } else {
-      setEditTodoId(id);
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('edit');
-    }
-  };
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
-  const hideInputOverlay = () => {
-    setEditTodoId(null);
-    setIsBottomOverlayVisible(false);
-  };
-
+  // CRUD METHODS
   const addTodo = (title) => {
     const newTodo = {
       id: generateID(),
@@ -60,6 +56,11 @@ function App() {
     setTodos(newTodos);
   };
 
+  const getEditValue = () => {
+    if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
+    return '';
+  };
+
   const toggleDone = (id) => {
     const newTodos = [...todos];
     const todo = newTodos.find((todo) => todo.id === id);
@@ -68,64 +69,95 @@ function App() {
 
     setTodos(newTodos);
   };
-  
+
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
-  const toggleConfirmOverlayItemDelete = (id) =>{
+  const toggleConfirmOverlayItemDelete = (id) => {
     setTodoIdDel(id);
-  setIsConfirmOverlayItemDeleteVisible(!isConfirmOverlayItemDeleteVisible);}
-
+    setIsConfirmOverlayItemDeleteVisible(!isConfirmOverlayItemDeleteVisible);
+  };
 
   const clearList = () => setTodos([]);
 
+  // OVERLAY METHODS
   const toggleConfirmOverlay = () =>
     setIsConfirmOverlayVisible(!isConfirmOverlayVisible);
 
+  const showInputOverlay = (mode, id) => {
+    if (mode === 'add') {
+      setIsBottomOverlayVisible(true);
+      setBottomOverlayMode('add');
+    } else {
+      setEditTodoId(id);
+      setIsBottomOverlayVisible(true);
+      setBottomOverlayMode('edit');
+    }
+  };
+
+  const hideInputOverlay = () => {
+    setEditTodoId(null);
+    setIsBottomOverlayVisible(false);
+  };
+
   return (
-    <div className="App">
+    <div>
       <Header />
       <AddButton showInputOverlay={showInputOverlay} />
-      <TodoList
-        todos={todos}
-        toggleDone={toggleDone}
-        //deleteTodo={deleteTodo}
-        showInputOverlay={showInputOverlay}
-        toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
-      />
 
-      <Quote />
+      <AnimateSharedLayout>
+        {todos.length > 0 && (
+          <motion.div layout>
+            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+          </motion.div>
+        )}
 
-      {todos.length > 0 && (
-        <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
-      )}
-
-      {isConfirmOverlayVisible && (
-        <ConfirmOverlay
-          toggleOverlay={toggleConfirmOverlay}
-          clearList={clearList}
+        <TodoList
+          todos={todos}
+          toggleDone={toggleDone}
+          showInputOverlay={showInputOverlay}
+          toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
         />
-      )}
 
-      {isConfirmOverlayItemDeleteVisible && (
-        <ConfirmOverlayItemDelete
-          toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
-          todoIdDel={todoIdDel}
-          deleteTodo={deleteTodo}
-        />
-      )}
+        <motion.div layout>
+          <Quotes />
+        </motion.div>
+      </AnimateSharedLayout>
 
-      {isBottomOverlayVisible && (
-        <InputOverlay
-          mode={bottomOverlayMode}
-          initialValue={getEditValue()}
-          addTodo={addTodo}
-          editTodo={editTodo}
-          hideInputOverlay={hideInputOverlay}
-        />
-      )}
+      <AnimatePresence>
+        {isConfirmOverlayVisible && (
+          <ConfirmOverlay
+            toggleOverlay={toggleConfirmOverlay}
+            clearList={clearList}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isConfirmOverlayItemDeleteVisible && (
+          <ConfirmOverlayItemDelete
+            toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
+            todoIdDel={todoIdDel}
+            deleteTodo={deleteTodo}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isBottomOverlayVisible && (
+          <>
+            <InputOverlay
+              mode={bottomOverlayMode}
+              initialValue={getEditValue()}
+              addTodo={addTodo}
+              editTodo={editTodo}
+              hideInputOverlay={hideInputOverlay}
+            />
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

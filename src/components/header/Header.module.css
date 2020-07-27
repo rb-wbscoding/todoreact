@@ -1,20 +1,55 @@
-.header{
-    background-color:#0074d9;
-    top: 0;
-    left: 0;
-    right: 0;
-    position: fixed;
-    z-index: 100;
+:root {
+  --primary: #0074d9;
+  --header-bg-color: var(--primary);
+  --header-logo-bg: #fff;
+  --header-logo-gradient: #001f3f;
+  --header-logo-stop: #0074d9;
+  --header-logo-checkmarks: #42a4eb;
+  --header-title-color: #fff;
+  --header-switch-color: #fff;
+  --header-box-shadow: none;
 }
 
-.container{
-    display: flex;
-    align-items: center;
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 15px 20px;
+.dark {
+  --primary: #bb86fc;
+  --header-bg-color: rgba(255, 255, 255, 0.07);
+  --header-logo-bg: var(--primary);
+  --header-logo-gradient: #694596;
+  --header-logo-stop: #694596;
+  --header-logo-checkmarks: #694596;
+  --header-title-color: #ffffff;
+  --header-switch-color: var(--primary);
+  --header-box-shadow: 0 0 3px #00000066, 0 0 9px #00000066;
 }
 
-.logo{
-    margin-right: 15px;
+.header {
+  background-color: var(--header-bg-color);
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 100;
+  box-shadow: var(--header-box-shadow);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 15px 38px 15px 20px;
+}
+
+.container > * + * {
+  margin-left: 15px;
+}
+
+.iconcontainer {
+  flex: 1;
+  text-align: right;
+  color: var(--header-switch-color);
+}
+
+.iconcontainer svg {
+  cursor: pointer;
 }
