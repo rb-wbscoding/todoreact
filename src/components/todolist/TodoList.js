@@ -5,7 +5,13 @@ import styles from './TodoList.module.css';
 import { slideItems, fadeIn } from 'animations';
 import TodoItem from 'components/todoitem';
 
-function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfirmOverlayItemDelete }) {
+function TodoList({
+  todos,
+  toggleDone,
+  deleteTodo,
+  showInputOverlay,
+  toggleConfirmOverlayItemDelete
+}) {
   return (
     <motion.main key="main" className={styles.container} layout>
       <AnimatePresence>
@@ -28,12 +34,12 @@ function TodoList({ todos, toggleDone, deleteTodo, showInputOverlay, toggleConfi
         <motion.div
           {...fadeIn}
           transition={{ delay: 1 }}
-          style={{ textAlign: 'center' }}
+          className={styles.emptylist}
         >
-          Nothing to do{' '}
           <span role="img" aria-label="emoji">
             🤷‍♂️
           </span>
+          <div>Nothing to do</div>
         </motion.div>
       )}
     </motion.main>
