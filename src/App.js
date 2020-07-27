@@ -120,22 +120,25 @@ function App() {
       <Header />
 
       <AnimateSharedLayout>
-        {todos.length > 0 && (
-          <motion.div layout>
-            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+        <AnimatePresence>
+          {todos.length > 0 && (
+            <motion.div key="clearlist" layout>
+              <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} />
+            </motion.div>
+          )}
+
+          <TodoList
+            key="todolist"
+            todos={todos}
+            toggleDone={toggleDone}
+            showInputOverlay={showInputOverlay}
+            toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
+          />
+
+          <motion.div key="quotescomponent" layout>
+            <Quotes />
           </motion.div>
-        )}
-
-        <TodoList
-          todos={todos}
-          toggleDone={toggleDone}
-          showInputOverlay={showInputOverlay}
-          toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
-        />
-
-        <motion.div layout>
-          <Quotes />
-        </motion.div>
+        </AnimatePresence>
       </AnimateSharedLayout>
 
       <AddButton showInputOverlay={showInputOverlay} />
