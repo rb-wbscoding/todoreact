@@ -7,16 +7,10 @@ import styles from './TodoList.module.css';
 import { slideItems, fadeIn } from 'animations';
 import TodoItem from 'components/todoitem';
 
-function TodoList({
-  todos,
-  toggleDone,
-  deleteTodo,
-  showInputOverlay,
-  toggleConfirmOverlayItemDelete
-}) {
+function TodoList({ todos, dispatch }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const sortItems = (todos) => {
+  const sortTodos = (todos) => {
     const uncheckedItems = todos
       .filter((todo) => !todo.isDone)
       .sort((a, b) => new Date(a.dateAdded - new Date(b.dateAdded)));
@@ -30,16 +24,13 @@ function TodoList({
 
   return (
     <main className={`${styles.container} ${isDarkmode && styles.dark}`}>
-      {sortItems(todos).map((todo) => (
+      {sortTodos(todos).map((todo) => (
         <motion.div key={todo.id} {...slideItems} layout>
           <TodoItem
             todoId={todo.id}
             title={todo.title}
             isDone={todo.isDone}
-            toggleDone={toggleDone}
-            showInputOverlay={showInputOverlay}
-            deleteTodo={deleteTodo}
-            toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
+            dispatch={dispatch}
           />
         </motion.div>
       ))}

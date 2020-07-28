@@ -5,13 +5,12 @@ import { DarkmodeContext } from 'context';
 import styles from './AddButton.module.css';
 import { ReactComponent as PlusSvg } from 'assets/plus.svg';
 
-function AddButton({ showInputOverlay }) {
+function AddButton({ dispatch }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
   const onClickHandler = (e) => {
     e.preventDefault();
-
-    showInputOverlay('add');
+    dispatch({ type: 'SHOW_INPUT_ADD' });
   };
 
   return (

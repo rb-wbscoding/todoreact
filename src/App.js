@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
 import Header from 'components/header';
@@ -6,7 +6,6 @@ import AddButton from 'components/addbutton';
 import ConfirmOverlay from 'components/confirmoverlay';
 import ConfirmOverlayDone from 'components/confirmoverlaydone';
 import ConfirmOverlayItemDelete from 'components/confirmoverlayitemdelete/ConfirmOverlayItemDelete';
-//import ClearListButton from 'components/clearlistbutton';
 import ButtonHolder from 'components/buttonholder';
 import Quotes from 'components/quotes/Quotes';
 import TodoList from 'components/todolist';
@@ -14,20 +13,124 @@ import InputOverlay from 'components/inputoverlay';
 
 import { todosDefault, generateID } from 'data';
 
+const initialState = {
+  todos: [],
+  showOverlay: null,
+  editId: null,
+  editValue: '',
+  deleteId: null
+};
+
+const todoReducer = (state, action) => {
+  switch (action.type) {
+    // Initialization
+    case 'SET_TODOS':
+      return { ...state, todos: [...action.value] };
+
+    // CRUD Operations
+    case 'ADD_TODO':
+      if (action.value.trim() === '') {
+        alert('Please enter text.');
+        return { ...state };
+      }
+
+      const newTodo = {
+        id: generateID(),
+        title: action.value,
+        isDone: false,
+        dateAdded: new Date(),
+        dateDone: null
+      };
+
+      return { ...state, todos: [...state.todos, newTodo], showOverlay: null };
+
+    case 'EDIT_TODO':
+      if (action.value.trim() === '') {
+        alert('Please enter text.');
+        return { ...state };
+      }
+
+      const editTodos = [...state.todos];
+      const editTodo = editTodos.find((todo) => todo.id === action.id);
+      editTodo.title = action.value;
+
+      return {
+        ...state,
+        todos: [...editTodos],
+        showOverlay: null,
+        editValue: null,
+        editId: null
+      };
+
+    case 'TOGGLE_DONE':
+      const toggleTodos = [...state.todos];
+      const toggleTodo = toggleTodos.find((todo) => todo.id === action.id);
+
+      toggleTodo.isDone = action.value;
+      if (toggleTodo.isDone) toggleTodo.dateDone = new Date();
+      else toggleTodo.dateDone = null;
+
+      return { ...state, todos: [...toggleTodos] };
+
+    case 'DELETE_TODO':
+      return {
+        ...state,
+        todos: [...state.todos.filter((todo) => todo.id !== action.id)],
+        showOverlay: null,
+        deleteId: null
+      };
+
+    case 'CLEAR_ALL':
+      return { ...state, todos: [], showOverlay: null };
+
+    case 'CLEAR_DONE':
+      return {
+        ...state,
+        todos: [...state.todos.filter((todo) => !todo.isDone)],
+        showOverlay: null
+      };
+
+    // UI state
+    case 'SHOW_CONFIRM_CLEARALL':
+      return { ...state, showOverlay: 'clear-all' };
+
+    case 'SHOW_CONFIRM_CLEARDONE':
+      return { ...state, showOverlay: 'clear-done' };
+
+    case 'SHOW_CONFIRM_DELITEM':
+      return { ...state, showOverlay: 'delete-item', deleteId: action.id };
+
+    case 'SHOW_INPUT_ADD':
+      return { ...state, showOverlay: 'add-item' };
+
+    case 'SHOW_INPUT_EDIT':
+      return {
+        ...state,
+        showOverlay: 'edit-item',
+        editValue: state.todos.find((todo) => todo.id === action.id).title,
+        editId: action.id
+      };
+
+    case 'CANCEL_OVERLAY':
+      return {
+        ...state,
+        showOverlay: null,
+        editValue: null,
+        editId: null,
+        deleteId: null
+      };
+
+    // Fallback
+    default:
+      return state;
+  }
+};
+
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [state, dispatch] = useReducer(todoReducer, initialState);
+  const { todos, showOverlay, editId, editValue, deleteId } = state;
 
-  const [isConfirmOverlayVisible, setIsConfirmOverlayVisible] = useState(false);
-  const [isConfirmOverlayDoneVisible, setIsConfirmOverlayDoneVisible] = useState(false);
-  const [
-    isConfirmOverlayItemDeleteVisible,
-    setIsConfirmOverlayItemDeleteVisible
-  ] = useState(false);
-  const [isBottomOverlayVisible, setIsBottomOverlayVisible] = useState(false);
-  const [bottomOverlayMode, setBottomOverlayMode] = useState('add');
-  const [editTodoId, setEditTodoId] = useState(null);
-  const [todoIdDel, setTodoIdDel] = useState(null);
-
+  // Read todos from localStorage
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos'));
 
@@ -38,120 +141,29 @@ function App() {
         dateDone: todo.dateDone !== null ? new Date(todo.dateDone) : null
       }));
 
-      setTodos(newTodos);
-    } else setTodos(todosDefault);
+      dispatch({ type: 'SET_TODOS', value: newTodos });
+    } else dispatch({ type: 'SET_TODOS', value: todosDefault });
   }, []);
 
+  // Write todos to localStorage
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  // CRUD METHODS
-  const addTodo = (title) => {
-    if (title.trim() === '') return alert('Please enter text.');
-
-    const newTodo = {
-      id: generateID(),
-      title,
-      isDone: false,
-      dateAdded: new Date(),
-      dateDone: null
-    };
-    const newTodos = [...todos, newTodo];
-
-    setTodos(newTodos);
-  };
-
-  const editTodo = (title) => {
-    if (title.trim() === '') return alert('Please enter text.');
-
-    const newTodos = [...todos];
-    const todo = newTodos.find((todo) => todo.id === editTodoId);
-
-    todo.title = title;
-
-    setTodos(newTodos);
-  };
-
-  const getEditValue = () => {
-    if (editTodoId) return todos.find((todo) => todo.id === editTodoId).title;
-    return '';
-  };
-
-  const toggleDone = (id) => {
-    const newTodos = [...todos];
-    const todo = newTodos.find((todo) => todo.id === id);
-
-    todo.isDone = !todo.isDone;
-
-    if (todo.isDone) todo.dateDone = new Date();
-    else todo.dateDone = null;
-
-    setTodos(newTodos);
-  };
-
-  const deleteTodo = (id) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(newTodos);
-  };
-
-  const toggleConfirmOverlayItemDelete = (id) => {
-    setTodoIdDel(id);
-    setIsConfirmOverlayItemDeleteVisible(!isConfirmOverlayItemDeleteVisible);
-  };
-
-  const clearList = () => setTodos([]);
-
-  const clearDone = () =>{
-    const newTodos = todos.filter(todo=>!todo.isDone)
-    setTodos(newTodos);
-  }
-
-  // OVERLAY METHODS
-  const toggleConfirmOverlay = () =>
-    setIsConfirmOverlayVisible(!isConfirmOverlayVisible);
-
-  const toggleConfirmOverlayDone = () =>{
-    setIsConfirmOverlayDoneVisible(!isConfirmOverlayDoneVisible);}
-
-  const showInputOverlay = (mode, id) => {
-    if (mode === 'add') {
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('add');
-    } else {
-      setEditTodoId(id);
-      setIsBottomOverlayVisible(true);
-      setBottomOverlayMode('edit');
-    }
-  };
-
-  const hideInputOverlay = () => {
-    setEditTodoId(null);
-    setIsBottomOverlayVisible(false);
-  };
-
   return (
     <div>
+      {/* UI */}
       <Header />
 
       <AnimateSharedLayout>
         <AnimatePresence>
           {todos.length > 0 && (
             <motion.div key="clearlist" layout>
-              <ButtonHolder 
-              toggleConfirmOverlay={toggleConfirmOverlay} 
-              toggleConfirmOverlayDone={toggleConfirmOverlayDone}
-              />      
+              <ButtonHolder dispatch={dispatch} />
             </motion.div>
           )}
 
-          <TodoList
-            key="todolist"
-            todos={todos}
-            toggleDone={toggleDone}
-            showInputOverlay={showInputOverlay}
-            toggleConfirmOverlayItemDelete={toggleConfirmOverlayItemDelete}
-          />
+          <TodoList key="todolist" todos={todos} dispatch={dispatch} />
 
           <motion.div key="quotescomponent" layout>
             <Quotes />
@@ -159,48 +171,39 @@ function App() {
         </AnimatePresence>
       </AnimateSharedLayout>
 
-      <AddButton showInputOverlay={showInputOverlay} />
+      <AddButton dispatch={dispatch} />
+
+      {/* OVERLAYS */}
+      <AnimatePresence>
+        {showOverlay === 'clear-all' && <ConfirmOverlay dispatch={dispatch} />}
+      </AnimatePresence>
 
       <AnimatePresence>
-        {isConfirmOverlayVisible && (
-          <ConfirmOverlay
-            toggleOverlay={toggleConfirmOverlay}
-            clearList={clearList}
-          />
+        {showOverlay === 'clear-done' && (
+          <ConfirmOverlayDone dispatch={dispatch} />
         )}
       </AnimatePresence>
 
       <AnimatePresence>
-        {isConfirmOverlayDoneVisible && (
-          <ConfirmOverlayDone
-            toggleOverlayDone={toggleConfirmOverlayDone}
-            clearDone={clearDone}
-          />
-        )}
-      </AnimatePresence>
-
-
-      <AnimatePresence>
-        {isConfirmOverlayItemDeleteVisible && (
-          <ConfirmOverlayItemDelete
-            toggleOverlayItemDelete={toggleConfirmOverlayItemDelete}
-            todoIdDel={todoIdDel}
-            deleteTodo={deleteTodo}
-          />
+        {showOverlay === 'delete-item' && (
+          <ConfirmOverlayItemDelete todoIdDel={deleteId} dispatch={dispatch} />
         )}
       </AnimatePresence>
 
       <AnimatePresence>
-        {isBottomOverlayVisible && (
-          <>
-            <InputOverlay
-              mode={bottomOverlayMode}
-              initialValue={getEditValue()}
-              addTodo={addTodo}
-              editTodo={editTodo}
-              hideInputOverlay={hideInputOverlay}
-            />
-          </>
+        {showOverlay === 'add-item' && (
+          <InputOverlay mode="add" dispatch={dispatch} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showOverlay === 'edit-item' && (
+          <InputOverlay
+            mode="edit"
+            editId={editId}
+            initialValue={editValue}
+            dispatch={dispatch}
+          />
         )}
       </AnimatePresence>
     </div>

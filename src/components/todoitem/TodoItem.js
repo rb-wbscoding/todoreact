@@ -6,23 +6,17 @@ import styles from './TodoItem.module.css';
 import { ReactComponent as CheckmarkSvg } from 'assets/checkmark.svg';
 import { ReactComponent as TrashSvg } from 'assets/trash.svg';
 
-function TodoItem({
-  isDone,
-  title,
-  todoId,
-  toggleDone,
-  showInputOverlay,
-  toggleConfirmOverlayItemDelete
-}) {
+function TodoItem({ todoId, title, isDone, dispatch }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const onClickCheckmark = () => toggleDone(todoId);
+  const onClickCheckmark = () =>
+    dispatch({ type: 'TOGGLE_DONE', id: todoId, value: !isDone });
 
-  const onClickDescription = () => showInputOverlay('edit', todoId);
+  const onClickDescription = () =>
+    dispatch({ type: 'SHOW_INPUT_EDIT', id: todoId });
 
-  const onClickTrash = () => {
-    toggleConfirmOverlayItemDelete(todoId);
-  };
+  const onClickTrash = () =>
+    dispatch({ type: 'SHOW_CONFIRM_DELITEM', id: todoId });
 
   return (
     <article

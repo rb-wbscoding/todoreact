@@ -6,17 +6,12 @@ import { DarkmodeContext } from 'context';
 import styles from './ConfirmOverlay.module.css';
 import { fadeIn } from 'animations';
 
-function ConfirmOverlay({ toggleOverlay, clearList }) {
+function ConfirmOverlay({ dispatch }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const handleClearButton = () => {
-    clearList(); 
-    toggleOverlay();
-  };
+  const handleClearButton = () => dispatch({ type: 'CLEAR_ALL' });
 
-  const handleCancelButton = () => {
-    toggleOverlay();
-  };
+  const handleCancelButton = () => dispatch({ type: 'CANCEL_OVERLAY' });
 
   return (
     <>

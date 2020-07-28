@@ -7,33 +7,21 @@ import styles from './InputOverlay.module.css';
 import { slideUpOverlay, fadeIn } from 'animations';
 import { ReactComponent as CloseSvg } from 'assets/close.svg';
 
-function InputOverlay({
-  mode = 'add',
-  addTodo,
-  editTodo,
-  initialValue,
-  hideInputOverlay
-}) {
+function InputOverlay({ mode = 'add', editId = null, initialValue, dispatch }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
   const [inputValue, setInputValue] = useState(
     mode === 'add' ? '' : initialValue
   );
 
-  const onChangeHandler = (e) => {
-    setInputValue(e.currentTarget.value);
-  };
+  const onChangeHandler = (e) => setInputValue(e.currentTarget.value);
 
   const onClickSubmit = (e) => {
     e.preventDefault();
 
-    if (mode === 'add') {
-      addTodo(inputValue);
-    } else {
-      editTodo(inputValue);
-    }
+    if (mode === 'add') dispatch({ type: 'ADD_TODO', value: inputValue });
+    else dispatch({ type: 'EDIT_TODO', id: editId, value: inputValue });
 
-    hideInputOverlay();
     setInputValue('');
   };
 
@@ -41,19 +29,15 @@ function InputOverlay({
     if (e.keyCode !== 13) return;
     e.preventDefault();
 
-    if (mode === 'add') {
-      addTodo(inputValue);
-    } else {
-      editTodo(inputValue);
-    }
+    if (mode === 'add') dispatch({ type: 'ADD_TODO', value: inputValue });
+    else dispatch({ type: 'EDIT_TODO', id: editId, value: inputValue });
 
-    hideInputOverlay();
     setInputValue('');
   };
 
   const onClickCancel = () => {
     setInputValue('');
-    hideInputOverlay();
+    dispatch({ type: 'CANCEL_OVERLAY' });
   };
 
   return (
