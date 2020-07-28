@@ -6,18 +6,13 @@ import { DarkmodeContext } from 'context';
 import styles from './ConfirmOverlayItemDelete.module.css';
 import { fadeIn } from 'animations';
 
-//need to get Item Id
-function ConfirmOverlayItemDelete({
-  toggleOverlayItemDelete,
-  todoIdDel,
-  deleteTodo
-}) {
+function ConfirmOverlayItemDelete({ todoIdDel, dispatch }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const handleClearButton = () => {
-    deleteTodo(todoIdDel);
-    toggleOverlayItemDelete();
-  };
+  const handleDeleteButton = () =>
+    dispatch({ type: 'DELETE_TODO', id: todoIdDel });
+
+  const handleCancelButton = () => dispatch({ type: 'CANCEL_OVERLAY' });
 
   return (
     <>
@@ -27,16 +22,10 @@ function ConfirmOverlayItemDelete({
         {...fadeIn}
       >
         <p className={styles.confirmdialogp}>Delete item?</p>
-        <button
-          className={styles.confirmdelete}
-          onClick={() => handleClearButton()}
-        >
+        <button className={styles.confirmdelete} onClick={handleDeleteButton}>
           Delete
         </button>
-        <button
-          className={styles.canceldelete}
-          onClick={() => toggleOverlayItemDelete()}
-        >
+        <button className={styles.canceldelete} onClick={handleCancelButton}>
           Cancel
         </button>
       </motion.div>

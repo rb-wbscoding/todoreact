@@ -4,16 +4,13 @@ import ClearDoneButton from 'components/cleardonebutton';
 
 import styles from './ButtonHolder.module.css';
 
-
-function ButtonHolder({ toggleConfirmOverlayDone, toggleConfirmOverlay }){
-    return(
-        <div className = {styles.buttonholder}>            
-            <ClearDoneButton toggleConfirmOverlayDone={toggleConfirmOverlayDone} />
-            <ClearListButton toggleConfirmOverlay={toggleConfirmOverlay} /> 
-        </div>
-    )
-
-
+function ButtonHolder({ dispatch }) {
+  return (
+    <div className={styles.buttonholder}>
+      <ClearDoneButton dispatch={dispatch} />
+      <ClearListButton dispatch={dispatch} />
+    </div>
+  );
 }
 
-export default ButtonHolder
+export default ButtonHolder;

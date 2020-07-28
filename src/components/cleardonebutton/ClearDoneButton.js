@@ -4,12 +4,10 @@ import { DarkmodeContext } from 'context';
 
 import styles from './ClearDoneButton.module.css';
 
-function ClearDoneButton({ toggleConfirmOverlayDone }) {
+function ClearDoneButton({ dispatch }) {
   const { isDarkmode } = useContext(DarkmodeContext);
 
-  const onClickHandler = () => {
-    toggleConfirmOverlayDone();
-  };
+  const onClickHandler = () => dispatch({ type: 'SHOW_CONFIRM_CLEARDONE' });
 
   return (
     <button
